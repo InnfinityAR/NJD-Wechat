@@ -1,0 +1,57 @@
+.form{
+    width: 100%;
+}
+.form .formGroup{
+    width: 90%;
+    margin:auto;
+    margin-bottom: 20px;
+}
+.form .labelTitle{
+    width: 20%;
+    display: inline-block;
+}
+.form .formControl{
+    width: 70%;
+    display: inline-block;
+    margin-left: 5%;
+}
+.form .formControl .sex-input{
+    width: 50%;
+    display: inline-block;
+    margin-right: 5%;
+}
+.form .formControl .sex-span label{
+    margin-right: 3%;
+}
+.form .formControl .code-input{
+    width: 45%;
+    display: inline-block;
+    margin-right: 5%;
+}
+.form .formControl .code-span .getCode{
+    display: inline-block;
+    width: 45%;
+    color: #fff;
+    background-color: #fc464b;
+    height: 35px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 35px;
+    text-decoration: none;
+}
+.form .assessDiv{
+    margin-top: 35px;
+}
+.form .assess{
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #fc464b;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    
+}
+
+
