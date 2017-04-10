@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>上传图片</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="/resources/static/layui/css/layui.css"  media="all">
+
+        <script type="text/javascript" src="/resources/style/admin/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="/resources/static/shearphoto/js/ajaxfileupload.js"></script>
+
+        <script type="text/javascript" src="/resources/static/shearphoto/js/ShearPhoto.js"></script>
+        <!--ShearPhoto的核心文件 截取，拖拽，HTML5切图，数据交互等都是由这个文件处理，全部由明哥先生汗水交织而成-->
+        <script type="text/javascript" src="/resources/static/shearphoto/js/alloyimage.js"></script>
+        <!--图片特效处理,他只负责特效，其他功能与这个文件完全无关，这个JS从腾讯AI文件  如你不要特效的话，顺带删除这个文件，在hendle.js设置关闭特效-->
+        <script type="text/javascript" src="/resources/static/shearphoto/js/handle.js"></script>
+        <!--设置和处理对象方法的JS文件，要修改设置，请进入这个文件-->
+    </head>
+    <body>
+        <div class="layui-main">
+            <div id="shearphoto_main">
+                <!--                效果开始.............如果你不要特效，可以直接删了........
+                                <div class="Effects" id="shearphoto_Effects" autocomplete="off">
+                                    <strong class="EffectsStrong">截图效果</strong>
+                                    <a href="javascript:;" StrEvent="原图" class="Aclick"><img src="/resources/static/shearphoto/images/Effects/e0.jpg" />原图</a>
+                                    <a href="javascript:;" StrEvent="美肤"><img src="/resources/static/shearphoto/images/Effects/e1.jpg" />美肤效果</a>
+                                    <a href="javascript:;" StrEvent="素描"><img src="/resources/static/shearphoto/images/Effects/e2.jpg" />素描效果</a>
+                                    <a href="javascript:;" StrEvent="自然增强"><img src="/resources/static/shearphoto/images/Effects/e3.jpg" />自然增强</a>
+                                    <a href="javascript:;" StrEvent="紫调"><img src="/resources/static/shearphoto/images/Effects/e4.jpg" />紫调效果</a>
+                                    <a href="javascript:;" StrEvent="柔焦"><img src="/resources/static/shearphoto/images/Effects/e5.jpg" />柔焦效果</a>
+                                    <a href="javascript:;" StrEvent="复古"><img src="/resources/static/shearphoto/images/Effects/e6.jpg" />复古效果</a>
+                                    <a href="javascript:;" StrEvent="黑白"><img src="/resources/static/shearphoto/images/Effects/e7.jpg" />黑白效果</a>
+                                    <a href="javascript:;" StrEvent="仿lomo"><img src="/resources/static/shearphoto/images/Effects/e8.jpg" />仿lomo</a>
+                                    <a href="javascript:;" StrEvent="亮白增强"><img src="/resources/static/shearphoto/images/Effects/e9.jpg" />亮白增强</a>
+                                    <a href="javascript:;" StrEvent="灰白"><img src="/resources/static/shearphoto/images/Effects/e10.jpg" />灰白效果</a>
+                                    <a href="javascript:;" StrEvent="灰色"><img src="/resources/static/shearphoto/images/Effects/e11.jpg" />灰色效果</a>
+                                    <a href="javascript:;" StrEvent="暖秋"><img src="/resources/static/shearphoto/images/Effects/e12.jpg" />暖秋效果</a>
+                                    <a href="javascript:;" StrEvent="木雕"><img src="/resources/static/shearphoto/images/Effects/e13.jpg" />木雕效果</a>
+                                    <a href="javascript:;" StrEvent="粗糙"><img src="/resources/static/shearphoto/images/Effects/e14.jpg" />粗糙效果</a>
+                                </div>
+                                效果结束...........................如果你不要特效，可以直接删了.....................................................-->
+                <!--primary范围开始-->
+                <div class="primary">
+                    <!--main范围开始-->
+                    <div id="main">
+                        <div class="point">
+                        </div>
+                        <!--选择加载图片方式开始-->
+                        <div id="SelectBox">
+                            <form id="ShearPhotoForm" enctype="multipart/form-data" method="post" target="POSTiframe">
+                                <input name="shearphoto" type="hidden" value="我要传参数" autocomplete="off">
+                                <!--示例传参数到服务端，后端文件UPLOAD.php用$_POST['shearphoto']接收,注意：HTML5切图时，这个参数是不会传的-->
+                                <a href="javascript:;" id="selectImage">
+                                    <input type="file" name="UpFile" autocomplete="off" />
+                                </a>
+                                <a href="javascript:;" id="orginImage" data-file="orgin">
+                                    <input type="file" name="Filedata" id="orgin" data-file="" autocomplete="off" />
+                                </a>
+                            </form>
+                        </div>
+                        <!--选择加载图片方式结束--->
+                        <div id="relat">
+                            <div id="black">
+                            </div>
+                            <div id="movebox">
+                                <div id="smallbox">
+                                    <img src="/resources/static/shearphoto/images/default.gif" class="MoveImg" />
+                                    <!--截框上的小图-->
+                                </div>
+                                <!--动态边框开始-->
+                                <i id="borderTop">
+                                </i>
+
+                                <i id="borderLeft">
+                                </i>
+
+                                <i id="borderRight">
+                                </i>
+
+                                <i id="borderBottom">
+                                </i>
+                                <!--动态边框结束-->
+                                <i id="BottomRight">
+                                </i>
+                                <i id="TopRight">
+                                </i>
+                                <i id="Bottomleft">
+                                </i>
+                                <i id="Topleft">
+                                </i>
+                                <i id="Topmiddle">
+                                </i>
+                                <i id="leftmiddle">
+                                </i>
+                                <i id="Rightmiddle">
+                                </i>
+                                <i id="Bottommiddle">
+                                </i>
+                            </div>
+                            <img src="/resources/static/shearphoto/images/default.gif" class="BigImg" />
+                            <!--MAIN上的大图-->
+                        </div>
+                    </div>
+                    <!--main范围结束-->
+                    <div style="clear: both"></div>
+                    <!--工具条开始-->
+                    <div id="Shearbar">
+                        <form class="layui-form" action="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">保存图片宽度</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="saveWidth" vlaue="200" required  lay-verify="required" placeholder="保存图片宽度" id="saveWidth" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">选取框比例</label>
+                                <div class="layui-input-block">
+                                    <select name="changeFree"  lay-filter="changeFree" lay-verify="required"  id="changeFree">
+                                        <option value="0">自由比例</option>
+                                        <option value="1">1:1</option>
+                                        <option value="2">2:1</option>
+                                        <option value="1.33">4:3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <a id="LeftRotate"  class="layui-btn layui-btn-normal" href="javascript:;">
+                                    <em>
+                                    </em> 向左旋转
+                                </a>
+                                <em class="hint L">
+                                </em>
+                                <div class="ZoomDist" id="ZoomDist">
+                                    <div id="Zoomcentre">
+                                    </div>
+                                    <div id="ZoomBar">
+                                    </div>
+                                    <span class="progress">
+                                    </span>
+                                </div>
+                                <em class="hint R">
+                                </em>
+                                <a id="RightRotate"  class="layui-btn layui-btn-normal" href="javascript:;">
+                                    向右旋转
+                                    <em>
+                                    </em>
+                                </a>
+                            </div>
+                            <div class="layui-form-item">
+                                <p class="Psava">
+                                    <a id="againIMG" class="layui-btn layui-btn-normal"  href="javascript:;">重新选择</a>
+                                    <a id="saveShear" class="layui-btn layui-btn-normal"  href="javascript:;">保存截图</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    <!--工具条结束-->
+                </div>
+                <!--primary范围结束-->
+                <div style="clear: both"></div>
+            </div>
+            <!--shearphoto_main范围结束-->
+        </div>
+
+
+
+        <script src="/resources/static/layui/layui.js" charset="utf-8"></script>
+        <script>
+            layui.link('/resources/static/shearphoto/css/ShearPhoto.css');
+            //设置图片上传路径 图片裁剪大小
+            setCropConfig();
+            var $, layer;
+            layui.use('form', function () {
+                var $ = layui.jquery;
+                var form = layui.form();
+                form.on('select(changeFree)', function (data) {
+                    Shear.SetProportional(parseFloat(data.value));
+                });
+            });
+
+            //    <!--原图上传-->
+            $(function () {
+            var token = parent._token;
+                    $("#orginImage").click(function () {
+            var _this = $(this);
+                    $("#orgin").attr("data-file", _this.data("file"));
+            })
+                    $("#orgin").change(function () {
+            var _this = $(this);
+                    $.ajaxFileUpload({
+                    url: parent.uploads_url,
+                            secureuri: false,
+                            fileElementId: _this.attr('data-file'),
+                            type: 'POST',
+                            dataType: 'eval',
+                            data: {filename: _this.attr("data-file"), file_path:saveUrl, _token:token},
+                            success: function (data) {
+                                console.log(data);
+                            layui.use('layer', function (laytpl) {
+                            var $ = layui.jquery;
+                                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                                    var src = data;
+                                    parent.layer.msg('保存成功');
+                                    parent.$('.upload-show-img-now').attr('src', src);
+                                    varoldPath = parent.$('.upload-show-input-now').val();
+                                    parent.$('.upload-show-input-now').val(src);
+                                    parent.$('.upload-show-input-now').next('div').children('.upload-check-img,.upload-delete-img').show();
+                            parent.layer.close(index);
+                        });
+                        }
+                    })
+});
+})
+
+        </script>
+
+    </body>
+</html>
