@@ -15,7 +15,7 @@
 Route::any("upload", "Controller@upload");                                       // 原图上传
 Route::any("sendCode", "Controller@sendCode");                                   // 发送验证码
 Route::any("checkCode", "Controller@checkCode");                                 // 检验验证码
-Route::any(".env", function(){                                                    // 禁止访问.env
+Route::any(".env", function() {                                                    // 禁止访问.env
     return view("index.error.404");
 });
 /* * 公共路由* */
@@ -53,44 +53,7 @@ Route::group(["namespace" => "Admin", "prefix" => config("app.admin_prefix"), "m
 });
 /* * 后台路由* */
 
-/* * 手机路由* */
-Route::group(["namespace" => "Mobile", "domain" => config("app.mobile_url"), "middleware" => ["DeviceJudge"]], function(){
-    Route::get("/", "IndexController@index");                                                   // 首页
-    Route::get("search", "ArticleController@search");                                           // 搜索
-    Route::get("map", "IndexController@map");                                                   // 网站地图
-    Route::get("link", "IndexController@link");                                                 // 友情链接
-    Route::get("introduce/{nav_id}", "ArticleController@introduce")->where("nav_id","[0-9]+");   // 介绍页
-    Route::get("article/{id}", "ArticleController@detail")->name("articleDetail")->where("id", "[0-9]+");          // 文章详情页
-    Route::get("article/{category}", "ArticleController@index");                            // 文章分类列表
-    Route::post("saveUser", "IndexController@saveUser");                                    // 保存用户信息
-});
-/* * 手机路由* */
-
 /* * 前台路由* */
-Route::group(["namespace" => "Index", "middleware" => ["DeviceJudge"]], function() {
-    Route::get("/", "IndexController@index")->name("/");                            // 首页
-    Route::get("introduce/{nav_id}", "ArticleController@introduce")->name("introduce");     // 网站介绍页
-    Route::get("map", "IndexController@map")->name("map");                                  // 网站地图
-    Route::get("link", "IndexController@link")->name("link");                               // 友情链接
-    Route::get("article/{id}", "ArticleController@detail")->name("articleDetail")->where("id", "[0-9]+");          // 文章详情页
-    Route::get("article/{category}", "ArticleController@index");                            // 文章分类列表
-    Route::get("article", "ArticleController@search")->name("article");                      // 文章搜索列表
-    Route::post("saveUser", "IndexController@saveUser");                                    // 保存用户信息
-    Route::get("getCity", "CommonController@getCity");                                      // 动态获取城市
-    Route::get("error", function() {                                                         // 错误页面
-        return view("index.error.404");
-    });
+Route::group(["namespace"=>"Index"], function() {
+    Route::get("/", "IndexController@index");
 });
-
-/* * 前台路由* */
-
-
-/* * 接口路由* */
-Route::group(["namespace" => "Api", 'prefix' => 'api/web', "middleware" => ['ActiveToken']], function() {
-    Route::match(['get', 'post'], 'getConfig', "WebApiController@getConfig");                        // 获取网站配置
-    Route::match(['get', 'post'], 'setConfig', "WebApiController@setConfig");                        // 设置网站配置
-    Route::match(['get', 'post'], 'getCategory', "WebApiController@getCategory");                        // 设置网站配置
-    Route::match(['get', 'post'], 'addArticle', "WebApiController@addArticle");                      // 增加文章
-    Route::match(['get', 'post'], 'updateUser', "WebApiController@updateUser");                      // 增加文章
-});
-/**接口路由**/

@@ -232,7 +232,6 @@ return [
 
     ],
     
-    "admin_prefix" => "Ch98h46V",  // 网站后台前缀
-    "mobile_url" => "m.jpact.test.hw2006.org",  // 手机站地址
+    "admin_prefix" => "admin",  // 网站后台前缀
 
 ];
