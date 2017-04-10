@@ -40,8 +40,6 @@ class UserController extends FormController {
         $user["password"] = md5($request->get("password"));
         $user["is_active"] = 1;
         $user["logins"] = 0;
-        // 开启事务
-        DB::beginTransaction();
         $res = User::create($user);
 
         $data["user_id"] = $res->id;
@@ -56,22 +54,9 @@ class UserController extends FormController {
 
 
         if ($res) {
-            // 向第三方发送用户
-            $webApi = new WebApiController();
-
-            $result = $webApi->syncUser($res);
-            if ($result["status"]) {      // 发送成功
-                $user_map["id"] = $res->id;
-                User::where($user_map)->update(["openid" => $result["info"]["openid"]]);   // 将返回的openid更新到用户表
-                $back["status"] = true;
-                $back["msg"] = "数据插入成功";
-            } else {
-                // 回滚
-                DB::rollBack();
-                $back["status"] = false;
-                $back["msg"] = "向第三方更新数据时出错";
-            }
-            DB::commit();
+            $back["status"] = true;
+            $back["msg"] = "数据插入成功";
+            
         } else {
             $back["status"] = false;
             $back["msg"] = "数据插入失败";
@@ -92,8 +77,6 @@ class UserController extends FormController {
         if ($password) {
             $user["password"] = md5($password);
         }
-        // 开启事务
-        DB::beginTransaction();
         $res = User::where("id", $id)->update($user);
 
         // 更新role_user表
@@ -109,20 +92,9 @@ class UserController extends FormController {
         }
 
         if ($res !== false) {
-            // 向第三方更新数据
-            $webApi = new WebApiController;
-            $update_user = User::where("id", $id)->first();
-            $result = $webApi->syncUser($update_user);
-            if ($result["status"]) {
-                $back["status"] = true;
-                $back["msg"] = "数据修改成功";
-            } else {
-                // 回滚
-                DB::rollBack();
-                $back["status"] = false;
-                $back["msg"] = "向第三方更新数据时出错";
-            }
-            DB::commit();
+            $back["status"] = true;
+            $back["msg"] = "数据修改成功";
+            
         } else {
             $back["status"] = false;
             $back["msg"] = "数据修改失败";

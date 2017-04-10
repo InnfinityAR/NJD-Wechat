@@ -433,3 +433,30 @@ function isMobile() {
     }
     return false;
 }
+
+/**
+ * 获取客户状态
+ */
+function getStatus($status){
+    switch ($status) {
+        case 1:
+            $return = "已评估";
+            break;
+        
+        case 2:
+            $return = "已申请";
+            break;
+        
+        case 3:
+            $return = "有效客户";
+            break;
+        
+        case 4:
+            $return = "无效客户";
+            break;
+
+        default:
+            break;
+    }
+    return $return;
+}

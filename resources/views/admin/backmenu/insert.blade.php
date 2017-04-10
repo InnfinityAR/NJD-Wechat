@@ -31,6 +31,7 @@
                 <label class="col-sm-2 control-label">上级菜单</label>
                 <div class="col-sm-4">
                     <select name="pid" class="form-control">
+                        <option value="0">顶级菜单</option>
                         @foreach ($top_menus as $top_menu)
                         <option value="{{$top_menu->id}}">{{$top_menu->name}}</option>
                         @endforeach

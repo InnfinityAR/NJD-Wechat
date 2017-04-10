@@ -23,7 +23,6 @@
                     <th>登录次数</th>
                     <th>最近一次登录时间</th>
                     <th>账号状态</th>
-                    <th>第三方openid</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -37,7 +36,6 @@
                     <td>{{$data->logins}}</td>
                     <td>@if ($data->last_login=='')暂未登录 @else {{date("Y-m-d H:i:s",$data->last_login)}} @endif</td>
                     <td>@if ($data->is_active==1) 正常 @else 冻结中 @endif</td>
-                    <td>{{$data->openid}}</td>
                     <td>
                         <a href='/{{$admin_prefix}}/{{$controller}}/active/{{$data->id}}'>@if ($data->is_active==1) 冻结账号@else 解除冻结@endif</a>
                         <a href='/{{$admin_prefix}}/{{$controller}}/{{$data->id}}/edit'>修改</a>
