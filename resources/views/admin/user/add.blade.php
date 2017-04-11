@@ -34,6 +34,18 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 control-label">昵称</label>
+                <div class="col-sm-4">
+                    <input type="text" name="nickname" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">手机号码</label>
+                <div class="col-sm-4">
+                    <input type="text" name="tel" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 control-label">账户角色</label>
                 <div class="col-sm-4">
                     @foreach ($roles as $role)

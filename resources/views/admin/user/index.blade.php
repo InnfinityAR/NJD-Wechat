@@ -19,6 +19,8 @@
                     <th class="check-input "><input class="checkAll" type="checkbox"></th>
                     <th class="id">Id</th>
                     <th>用户名</th>
+                    <th>联系方式</th>
+                    <th>用户昵称</th>
                     <th>用户角色</th>
                     <th>登录次数</th>
                     <th>最近一次登录时间</th>
@@ -32,6 +34,8 @@
                     <td class="check-input"><input type="checkbox" id="{{$data->id}}"></td>
                     <td>{{$data->id}}</td>
                     <td>{{$data->name}}</td>
+                    <td>{{$data->tel}}</td>
+                    <td>{{$data->nickname}}</td>
                     <td>{{getRoleByUserId($data->id)}}</td>
                     <td>{{$data->logins}}</td>
                     <td>@if ($data->last_login=='')暂未登录 @else {{date("Y-m-d H:i:s",$data->last_login)}} @endif</td>

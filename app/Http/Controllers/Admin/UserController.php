@@ -38,6 +38,8 @@ class UserController extends FormController {
     public function store(Request $request) {
         $user["name"] = $request->get("name");
         $user["password"] = md5($request->get("password"));
+        $user["tel"] = $request->get("tel");
+        $user["nickname"] = $request->get("nickname");
         $user["is_active"] = 1;
         $user["logins"] = 0;
         $res = User::create($user);
@@ -77,6 +79,8 @@ class UserController extends FormController {
         if ($password) {
             $user["password"] = md5($password);
         }
+        $user["tel"] = $request->get("tel");
+        $user["nickname"] = $request->get("nickname");
         $res = User::where("id", $id)->update($user);
 
         // 更新role_user表

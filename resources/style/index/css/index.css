@@ -15,8 +15,15 @@
     display: inline-block;
     margin-left: 5%;
 }
+.form .formControl .floor-input{
+    display: inline-block;
+    width: 26%;
+}
+.form .formControl .total-floor-span{
+    margin-left: 3%;
+}
 .form .formControl .sex-input{
-    width: 50%;
+    width: 40%;
     display: inline-block;
     margin-right: 5%;
 }

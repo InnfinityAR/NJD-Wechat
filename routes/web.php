@@ -41,6 +41,7 @@ Route::group(["namespace" => "Admin", "prefix" => config("app.admin_prefix"), "m
     Route::get("client/status/{id}", "ClientController@index");                                                 // 客户列表
     Route::get("client/{id}/changeStatus/{status}", "ClientController@changeStatus")->where("id","[0-9]+");// 更改客户状态
     Route::post("client/remark", "ClientController@remark");                                                    // 添加备注
+    Route::post("client/assign", "ClientController@assign");                                                    // 分配客户
     Route::resource("client", "ClientController");                                                              // 客户管理
     Route::resource("residentialarea", "ResidentialareaController");                                            // 小区管理
     Route::resource("district", "DistrictController");                                                          // 南京区域管理
@@ -51,4 +52,6 @@ Route::group(["namespace" => "Admin", "prefix" => config("app.admin_prefix"), "m
 /* * 前台路由* */
 Route::group(["namespace"=>"Index"], function() {
     Route::get("/", "IndexController@index");
+    Route::post("/storeClientInfo", "IndexController@storeClientInfo");                                     // 保存用户信息
+    Route::get("assignClient", "IndexController@assignClient");                                             // 自动分配客户
 });
