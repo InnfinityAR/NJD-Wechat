@@ -16,7 +16,7 @@
             </select>
         </div>
         <div style="padding-right:0" class="col-lg-6">
-            <label class="searchLabel">Search: <input type="text" aria-controls="editable-sample" value="{{$search}}" class="form-control medium search" id="search-input"></label>
+            <label class="searchLabel">Search: <input type="text" aria-controls="editable-sample" value="{{$search}}" placeholder="输入客户手机号查询" class="form-control medium search" id="search-input"></label>
         </div>
     </div>
     <div class="panel-body">
@@ -31,6 +31,7 @@
                     <th>房屋地址</th>
                     <th>住房面积</th>
                     <th>房屋估价</th>
+                    <th>创建时间</th>
                     <th>状态</th>
                     <th>指派人</th>
                     <th>备注信息</th>
@@ -48,6 +49,7 @@
                     <th>{{$data->house_addr}}</th>
                     <td>{{$data->house_area}}/㎡</td>
                     <td>{{$data->price}}</td>
+                    <td>{{date("Y-m-d H:i",$data->create_time)}}</td>
                     <td>{{getStatus($data->status)}}</td>
                     <td>{{getField($data->user_id, "user", "nickname")}}</td>
                     <td>{{$data->remark or "暂无备注"}}</td>

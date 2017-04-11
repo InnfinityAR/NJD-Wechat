@@ -6,10 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>南京贷微信</title>
         <link rel="stylesheet" href="/resources/static/bootstrap/bootstrap.css"/>
+        <link rel="stylesheet" href="/resources/static/bootcomplete/dist/bootcomplete.css"/>
         <link rel="stylesheet" href="/resources/style/index/css/index.css"/>
         <script src="/resources/static/js/app.js"></script>
         <script src="/resources/static/bootstrap/bootstrap.min.js"></script>
         <script src="/resources/static/layer_mobile/layer.js"></script>
+        <script src="/resources/static/bootcomplete/dist/jquery.bootcomplete.js"></script>
     </head>
     <body>
         <div class="wrap">
@@ -43,9 +45,9 @@
                         </div>
                     </div>
                     <div class="formGroup residentialAreaDiv" style="display: none">
-                        <label class="labelTitle">小区名称</label>
+                        <label class="labelTitle">房屋地址</label>
                         <div class="formControl">
-                            <input type="text" name="house_number" placeholder="请填写房屋所在小区" class="form-control">
+                            <input type="text" name="house_addr" placeholder="请填写房屋所在小区或地址" class="form-control complete">
                         </div>
                     </div>
                     <div class="formGroup">
@@ -231,6 +233,14 @@ $(function () {
             });
         }
     });
+    
+    // 自动补全
+    $(".complete").bootcomplete({
+        url:"/getAddr",
+        method:"get",
+        minLength:2
+    });
+
 
     // 倒计时函数
     var countTime = 60;
@@ -248,6 +258,7 @@ $(function () {
 
         }
     }
+    
 
 })
         </script>

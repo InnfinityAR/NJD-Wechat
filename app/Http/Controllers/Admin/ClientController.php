@@ -27,14 +27,14 @@ class ClientController extends FormController {
                     }
                 })->where(function($query)use($search) {
                     if ($search) {
-                        $query->where("name", "like", "%" . $search . "%");
+                        $query->where("tel", "like", "%" . $search . "%");
                     }
                 })->where(function($query)use($role_ids, $user_id) {
                     if (in_array(3, $role_ids)) {
                         $query->where("user_id", $user_id);
                     }
                 })->orderBy("id", "desc")->paginate(10);
-
+                
         return view("admin.client.index", compact("datas", "status", "search", "flag"));
     }
 

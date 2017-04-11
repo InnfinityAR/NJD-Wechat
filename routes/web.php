@@ -54,4 +54,5 @@ Route::group(["namespace"=>"Index"], function() {
     Route::get("/", "IndexController@index");
     Route::post("/storeClientInfo", "IndexController@storeClientInfo");                                     // 保存用户信息
     Route::get("assignClient", "IndexController@assignClient");                                             // 自动分配客户
+    Route::get("getAddr", "IndexController@getAddr");                                                       // 动态获取地址
 });

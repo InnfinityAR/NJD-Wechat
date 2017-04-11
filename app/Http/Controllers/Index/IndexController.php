@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Model\District;
 use App\Http\Model\Client;
 use Illuminate\Support\Facades\DB;
+use App\Http\Model\Residentialarea;
 
 class IndexController extends CommonController {
 
@@ -60,6 +61,18 @@ class IndexController extends CommonController {
         }else{
             return false;
         }
+    }
+    
+    // 动态获取地址
+    public function getAddr(Request $request) {
+        $search = urldecode($request->get("query"));
+        $addrs = Residentialarea::where("residentialname", "like", "%".$search."%")->take(10)->get()->toArray();
+        foreach ($addrs as $addr){
+            $arr["id"] = $addr["residentialname"];
+            $arr["label"] = $addr["residentialname"];
+            $data[] = $arr;
+        }
+        return $data;
     }
 
 }
