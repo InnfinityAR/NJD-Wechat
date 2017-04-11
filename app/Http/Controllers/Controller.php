@@ -8,34 +8,32 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use App\Http\Model\Code;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    
-     //图片上传
-    public function upload() {
-        $file = Input::file('Filedata');
-        $url = Input::get("file_path");
-        $url = $url ? $url : "";
-        if ($file->isValid()) {
-            $entension = $file->getClientOriginalExtension(); //上传文件的后缀.
-            $newName = date('YmdHis') . mt_rand(10000, 99999) . '.' . $entension;
-            $path = $file->move(base_path() . '/public/uploads/' . $url, $newName);
-            $filepath = '/public/uploads/' . $url . "/" . $newName;
-            return $filepath;
-        }
-    }
     
     // 发送手机验证码
     public function sendCode(Request $request) {
         $mobile = $request->input("tel");
         if ($mobile) {
             $code = rand(1000, 9999);
-            session(['mobileCode' => md5($code) . time()]);
-            sendTemplateSMS($mobile, array($code, '5'), "1");
-            $back["status"] = 1;
-            $back["msg"] = "短信发送成功";
+            $res = sendTemplateSMS($mobile, array($code, '5'), "1");
+            if(!$res){
+                $back['status'] = 0;
+                $back['msg'] = "短信发送失败";
+            }else{
+                // 存入数据库
+                $code_data['tel'] = $mobile;
+                $code_data['code'] = $code;
+                $code_data['create_time'] = time();
+                Code::create($code_data);
+                
+                $back["status"] = 1;
+                $back["msg"] = "短信发送成功";
+            }
+            
             return $back;
         }
         return false;
@@ -43,16 +41,14 @@ class Controller extends BaseController
 
     // 检查手机验证码是否正确
     public function checkCode(Request $request) {
-        $code = $request->input("code");
-        $mobileCode = session('mobileCode');
-        $temp = md5($code);
-        if ((substr($mobileCode, 32) > time() - 900) && $temp == (substr($mobileCode, 0, 32))) {
+        $map["code"] = $request->input("code");
+        $map["tel"] = $request->input("tel");
+        if (Code::where($map)->first()) {
             $back["status"] = 1;
-            $back["msg"] = "操作成功";
-            return $back;
+        }else{
+            $back["status"] = 0;
+            $back["msg"] = "验证码错误";
         }
-        $back["status"] = 0;
-        $back["msg"] = "操作失败";
         return $back;
     }
     

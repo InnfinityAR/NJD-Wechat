@@ -42,6 +42,8 @@ Route::group(["namespace" => "Admin", "prefix" => config("app.admin_prefix"), "m
     Route::get("client/{id}/changeStatus/{status}", "ClientController@changeStatus")->where("id","[0-9]+");// 更改客户状态
     Route::post("client/remark", "ClientController@remark");                                                    // 添加备注
     Route::resource("client", "ClientController");                                                              // 客户管理
+    Route::resource("residentialarea", "ResidentialareaController");                                            // 小区管理
+    Route::resource("district", "DistrictController");                                                          // 南京区域管理
     
 });
 /* * 后台路由* */

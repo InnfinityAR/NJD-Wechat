@@ -53,5 +53,11 @@
     text-align: center;
     
 }
+.form .invalid{
+    border-color: #fc464b;
+}
+.form .formControl .code-span .disabled{
+    background-color: graytext;
+}
 
 
