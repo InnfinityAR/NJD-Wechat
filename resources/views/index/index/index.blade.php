@@ -16,10 +16,10 @@
     <body>
         <div class="wrap">
             <div class="logo">
-
+                <img style="width: 40%" src="/resources/style/index/images/logo.png">
             </div>
             <div class="step">
-
+                <img style="width: 80%" src="/resources/style/index/images/step1.png">
             </div>
             <div class="form">
                 <form>
@@ -36,15 +36,15 @@
                     <div class="formGroup">
                         <label class="labelTitle">所在区</label>
                         <div class="formControl">
-                            <select class="form-control" name="districtid">
+                            <select class="form-control" name="district">
                                 <option value="0">请选择房屋所在区</option>
                                 @foreach($districts as $district)
-                                <option value="{{$district->districtid}}">{{$district->districtname}}</option>
+                                <option value="{{$district->districtname}}">{{$district->districtname}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="formGroup residentialAreaDiv" style="display: none">
+                    <div class="formGroup residentialAreaDiv">
                         <label class="labelTitle">房屋地址</label>
                         <div class="formControl">
                             <input type="text" name="house_addr" placeholder="请填写房屋所在小区或地址" class="form-control complete">
@@ -68,12 +68,6 @@
                         </div>
                     </div>
                     <div class="formGroup">
-                        <label class="labelTitle">房号</label>
-                        <div class="formControl">
-                            <input type="text" name="house_number" placeholder="请填写房屋房号" class="form-control">
-                        </div>
-                    </div>
-                    <div class="formGroup">
                         <label class="labelTitle">房屋面积</label>
                         <div class="formControl">
                             <input type="number" name="house_area" placeholder="请填写房屋面积/㎡" class="form-control">
@@ -82,7 +76,7 @@
                     <div class="formGroup">
                         <label class="labelTitle">姓</label>
                         <div class="formControl">
-                            <input type="text" name="name" placeholder="请输入姓氏"  class="form-control sex-input">
+                            <input type="text" name="name" placeholder="姓氏"  class="form-control sex-input">
                             <span class="sex-span">
                                 <label><input type="radio" name="sex" checked="checked" value="1">先生</label>
                                 <label><input type="radio" name="sex" value="2">女士</label>
@@ -98,7 +92,7 @@
                     <div class="formGroup">
                         <label class="labelTitle">验证码</label>
                         <div class="formControl">
-                            <input type="number" name="code" placeholder="请输入验证码" class="form-control code-input">
+                            <input type="number" name="code" placeholder="验证码" class="form-control code-input">
                             <span class="code-span">
                                 <a class="getCode">获取验证码</a>
                             </span>
@@ -112,14 +106,7 @@
         </div>
         <script>
 $(function () {
-    // 房屋信息显示与隐藏
-    $("select[name='districtid']").change(function () {
-        if ($(this).val() != 0) {
-            $(".residentialAreaDiv").show();
-        } else {
-            $(".residentialAreaDiv").hide();
-        }
-    });
+    
 
     var telReg = /^1[3|4|5|8][0-9]\d{4,8}$/;    // 手机正则
     var nameReg = /^[\u4e00-\u9fa5]{2,4}$/;     // 中文姓名正则
@@ -146,19 +133,34 @@ $(function () {
                 "time": 2
             })
             $("input[name='tel']").addClass("invalid");     // 改变input框颜色
-        } else {      // 发送验证码
+        } else {      
             $.ajax({
                 type: "get",
-                url: "/sendCode?tel=" + tel,
-                success: function (res) {
-                    setTime();
-                    layer.open({
-                        "content": res.msg,
-                        "skin": "msg",
-                        "time": 2
-                    })
+                url: "/checkCodeTimes?tel=" + tel,
+                success: function (result) {
+                    if (result.status) {   // 发送验证码
+                        $.ajax({
+                            type: "get",
+                            url: "/sendCode?tel=" + tel,
+                            success: function (res) {
+                                setTime();
+                                layer.open({
+                                    "content": res.msg,
+                                    "skin": "msg",
+                                    "time": 2
+                                })
+                            }
+                        });
+                    }else{
+                        layer.open({
+                            "content": result.msg,
+                            "skin": "msg",
+                            "time": 2
+                        })
+                    }
                 }
             });
+
         }
     });
 
@@ -166,16 +168,28 @@ $(function () {
     $(".assess").click(function () {
         var data = {};
         data["house_type"] = $("select[name='house_type']").val();
+        data["district"] = $("select[name='district']").val()
         data["house_addr"] = $("input[name='house_addr']").val();
+        data["house_number"] = $("input[name='house_number']").val();
+        data["floor"] = $("input[name='floor']").val();
+        data["total_floor"] = $("input[name='total_floor']").val();
         data["house_area"] = $("input[name='house_area']").val();
         data["name"] = $("input[name='name']").val();
+        data["sex"] = $("input[name='sex']:checked").val();
         data["tel"] = $("input[name='tel']").val();
         data["code"] = $("input[name='code']").val();
         // 验证表单信息
-        if (!data['house_type']) {
+        if (data['house_type']==0) {
             $("select[name='house_type']").addClass("invalid");
             layer.open({
                 "content": "请选择房屋性质",
+                "skin": "msg",
+                "time": 2
+            });
+        }else if(data['district']==0){
+            $("select[name='district']").addClass("invalid");
+            layer.open({
+                "content": "请选择小区",
                 "skin": "msg",
                 "time": 2
             });
@@ -186,6 +200,27 @@ $(function () {
                 "skin": "msg",
                 "time": 2
             });
+        } else if (!data['house_number']) {
+            $("input[name='house_number']").addClass("invalid");
+            layer.open({
+                "content": "请填写所在楼栋",
+                "skin": "msg",
+                "time": 2
+            });
+        } else if (!data['floor']) {
+            $("input[name='floor']").addClass("invalid");
+            layer.open({
+                "content": "请填写所在层数",
+                "skin": "msg",
+                "time": 2
+            });
+        } else if (!data['total_floor']) {
+            $("input[name='total_floor']").addClass("invalid");
+            layer.open({
+                "content": "请填写总层数",
+                "skin": "msg",
+                "time": 2
+            });
         } else if (!data['house_area']) {
             $("input[name='house_area']").addClass("invalid");
             layer.open({
@@ -193,7 +228,7 @@ $(function () {
                 "skin": "msg",
                 "time": 2
             });
-        } else if (!nameReg.test(data['name'])) {
+        } else if (!data['name']) {
             $("input[name='name']").addClass("invalid");
             layer.open({
                 "content": "请填写姓氏",
@@ -221,7 +256,19 @@ $(function () {
                 url: "/checkCode?tel=" + data['tel'] + "&code=" + data['code'],
                 success: function (res) {
                     if (res.status) {     // 验证码正确，提交表单
-
+                        $.ajax({
+                            type:"post",
+                            data:data,
+                            url:"/storeClientInfo",
+                            success:function(result){
+                                console.log(result);
+                                if(result.status){
+                                    
+                                }else{
+                                    
+                                }
+                            }
+                        })
                     } else {      // 验证码错误
                         layer.open({
                             "content": res.msg,
@@ -233,12 +280,12 @@ $(function () {
             });
         }
     });
-    
+
     // 自动补全
     $(".complete").bootcomplete({
-        url:"/getAddr",
-        method:"get",
-        minLength:2
+        url: "/getAddr",
+        method: "get",
+        minLength: 2
     });
 
 
@@ -258,7 +305,7 @@ $(function () {
 
         }
     }
-    
+
 
 })
         </script>

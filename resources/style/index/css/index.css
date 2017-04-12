@@ -1,3 +1,11 @@
+.logo{
+    margin: 3% 0 5% 5%;
+}
+.step{
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+}
 .form{
     width: 100%;
 }
@@ -31,13 +39,13 @@
     margin-right: 3%;
 }
 .form .formControl .code-input{
-    width: 45%;
+    width: 40%;
     display: inline-block;
     margin-right: 5%;
 }
 .form .formControl .code-span .getCode{
     display: inline-block;
-    width: 45%;
+    width: 50%;
     color: #fff;
     background-color: #fc464b;
     height: 35px;

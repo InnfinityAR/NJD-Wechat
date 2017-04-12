@@ -46,7 +46,7 @@
                     <td>{{$data->name}}@if($data->sex==1)先生 @else 女士@endif</td>
                     <td>{{$data->tel}}</td>
                     <td>@if($data->house_type==1) 住宅 @else 商用 @endif</td>
-                    <th>{{$data->house_addr}}</th>
+                    <th>{{$data->district}}区{{$data->house_addr}}{{$data->house_number}}{{$data->floor}}层</th>
                     <td>{{$data->house_area}}/㎡</td>
                     <td>{{$data->price}}</td>
                     <td>{{date("Y-m-d H:i",$data->create_time)}}</td>

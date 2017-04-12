@@ -15,6 +15,7 @@
 Route::any("upload", "Controller@upload");                                       // 原图上传
 Route::any("sendCode", "Controller@sendCode");                                   // 发送验证码
 Route::any("checkCode", "Controller@checkCode");                                 // 检验验证码
+Route::get("checkCodeTimes", "Controller@checkCodeTimes");                      // 检验次数
 Route::any(".env", function() {                                                    // 禁止访问.env
     return view("index.error.404");
 });
