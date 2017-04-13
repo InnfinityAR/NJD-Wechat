@@ -5,8 +5,8 @@
     <div class="page-heading" style="margin-bottom: 50px;">
         <h3>客户列表</h3>
         <div style="padding-left: 0" class="col-lg-6">
-            @if($flag)<a class="btn btn-info assignAll" >批量分配<i class="fa fa-recycle"></i></a>@endif
-            <a class="btn btn-primary deleteAll" >批量删除<i class="fa fa-trash-o"></i></a>
+            @if($flag)<a class="btn btn-info assignAll" data-toggle="modal"  >批量分配<i class="fa fa-recycle"></i></a>@endif
+            @if(session('user')->name=='admin')<a class="btn btn-primary deleteAll" >批量删除<i class="fa fa-trash-o"></i></a>@endif
             <select onchange="window.location = this.value" class="form-control index_select" >
                 <option @if ($status == 0) selected @endif value="/{{$admin_prefix}}/{{$controller}}/">全部</option>
                 <option @if ($status == 1) selected @endif value="/{{$admin_prefix}}/{{$controller}}/status/1">已评估</option>
@@ -72,82 +72,112 @@
         </table>
         {{$datas->links()}}
     </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">请指派业务员</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <select name='user_id' class="form-control" style="width: 90%;margin: auto;
+                                margin-top: 20px;">
+                            @foreach($users as $user)
+                            <option value="{{$user->id}}">{{$user->nickname or $user->name}}({{$user->tel}})</option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary commit">提交更改</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 </section>
 @endsection
 
 @section("script")
 <script>
-    $(function(){
+    $(function () {
         // 添加备注
-        $(".remark").click(function(){
+        $(".remark").click(function () {
             var data = {};
             data['id'] = $(this).attr("data-id");
             layer.prompt({
-                "title":"请输入备注信息",
-                "formType":2
-            },function(pass,index){
-                if(!pass){
+                "title": "请输入备注信息",
+                "formType": 2
+            }, function (pass, index) {
+                if (!pass) {
                     layer.close(index);
                 }
                 // ajax传值
-                
+
                 data['remark'] = pass;
                 data['_token'] = csrf_token;
                 $.ajax({
-                    type:"post",
-                    url:"/"+admin_prefix+"/"+controller+"/remark",
-                    data:data,
-                    success:function(res){
-                        if(res.status){
-                            layer.msg("添加备注成功!",{icon:6});
-                            setTimeout(function(){
+                    type: "post",
+                    url: "/" + admin_prefix + "/" + controller + "/remark",
+                    data: data,
+                    success: function (res) {
+                        if (res.status) {
+                            layer.msg("添加备注成功!", {icon: 6});
+                            setTimeout(function () {
                                 location.reload();
-                            },3000);
-                        }else{
-                            layer.msg("添加备注失败!",{icon:5});
+                            }, 3000);
+                        } else {
+                            layer.msg("添加备注失败!", {icon: 5});
                         }
                     }
                 })
             });
         });
-        
+
         // 批量分配
-        $(".assignAll").click(function(){
+        $(".assignAll").click(function () {
             var client_ids = [];
-            $("tbody .check-input input").each(function(k,v){
-                if($(this).is(":checked")){
+            $("tbody .check-input input").each(function (k, v) {
+                if ($(this).is(":checked")) {
                     client_ids.push($(this).attr("id"));
                 }
             });
-            console.log(client_ids);
-            if(!client_ids.length){
+            if (!client_ids.length) {
                 layer.msg("请选择要分配的客户");
-            }else{
-                layer.prompt({
-                    "title":"请输入要分配的客户经理的账号或手机号"
-                },function(pass,index){
-                    var data = {};
-                    data["client_ids"] = client_ids;
-                    data["search"] = pass;
-                    data["_token"] = csrf_token;
-                    console.log(data);
-                    $.ajax({
-                        type:"post",
-                        data:data,
-                        url:"/"+admin_prefix+"/client/"+"assign",
-                        success:function(res){
-                            if(res.status){
-                                layer.msg(res.msg,{icon:6});
-                                setTimeout(function(){
-                                    location.reload();
-                                },1000);
-                            }else{
-                                layer.msg(res.msg,{icon:5})
-                            }
-                        }     
-                    })
-                })
+
+            } else {
+                $(this).attr("data-target", "#myModal");
+                $(this).removeClass("assignAll");
+                $(".btn-info").click();
             }
+        });
+        
+        $(".commit").click(function(){
+            var data = {};
+            var client_ids = [];
+            $("tbody .check-input input").each(function (k, v) {
+                if ($(this).is(":checked")) {
+                    client_ids.push($(this).attr("id"));
+                }
+            });
+            data["client_ids"] = client_ids;
+            data["user_id"] = $("select[name='user_id']").val();
+            data["_token"] = csrf_token;
+            $.ajax({
+                type:"post",
+                url:"/"+admin_prefix+"/client/assign",
+                data:data,
+                success:function(res){
+                    layer.msg("分配成功!",{icon:6});
+                    setTimeout(function(){
+                        location.reload();
+                    },2000)
+                }else{
+                    layer.msg("分配失败!",{icon:5});
+                }
+            })
         });
     })
 </script>

@@ -29,7 +29,7 @@
                             <select class="form-control" name="district">
                                 <option value="0">请选择房屋所在区</option>
                                 @foreach($districts as $district)
-                                <option value="{{$district->districtname}}">{{$district->districtname}}</option>
+                                <option value="{{$district->districtid}}">{{$district->districtname}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -60,10 +60,10 @@
                         <label class="labelTitle">所在楼层</label>
                         <div class="formControl">
                             <span>所在</span>
-                            <input type="number" name="floor" class="form-control floor-input">
+                            <input type="number" name="floor" max="2" class="form-control floor-input">
                             <span>层</span>
                             <span class="total-floor-span">共</span>
-                            <input type="number" name="total_floor" class="form-control floor-input">
+                            <input type="number" name="total_floor" max="2" class="form-control floor-input">
                             <span >层</span>
                         </div>
                     </div>
@@ -90,13 +90,13 @@
                     <div class="formGroup">
                         <label class="labelTitle">手机号</label>
                         <div class="formControl">
-                            <input type="tel" name="tel" placeholder="请填写您的手机号" class="form-control">
+                            <input type="tel" name="tel" placeholder="请填写您的手机号" maxlength="11" class="form-control">
                         </div>
                     </div>
                     <div class="formGroup">
                         <label class="labelTitle">验证码</label>
                         <div class="formControl">
-                            <input type="number" name="code" placeholder="验证码" class="form-control code-input">
+                            <input type="number" name="code" placeholder="验证码" maxlength="4" class="form-control code-input">
                             <span class="code-span">
                                 <a class="getCode">获取验证码</a>
                             </span>
@@ -110,7 +110,7 @@
         </div>
         <script>
 $(function () {
-
+    tel_num = "";
 
     var telReg = /^1[3|4|5|8][0-9]\d{4,8}$/;    // 手机正则
     var nameReg = /^[\u4e00-\u9fa5]{2,4}$/;     // 中文姓名正则
@@ -138,6 +138,7 @@ $(function () {
             })
             $("input[name='tel']").addClass("invalid");     // 改变input框颜色
         } else {
+            tel_num = tel;
             $.ajax({
                 type: "get",
                 url: "/checkCodeTimes?tel=" + tel,
@@ -173,7 +174,7 @@ $(function () {
         var data = {};
         data["house_type"] = $("select[name='house_type']").val();
         data["district"] = $("select[name='district']").val()
-        data["house_addr"] = $("input[name='house_addr']").val();
+        data["house_addr"] = $("input[name='house_addr']").val()||$("input[name='house_addr_id']").val();
         data["house_number"] = $("input[name='house_number']").val();
         data["floor"] = $("input[name='floor']").val();
         data["total_floor"] = $("input[name='total_floor']").val();
@@ -233,6 +234,15 @@ $(function () {
                 "time": 2
             });
         } else {
+//            if(data["tel"]!=tel_num){
+//                layer.open({
+//                    "content": "请勿更改手机号",
+//                    "skin": "msg",
+//                    "time": 2
+//                });
+//                $("input[name='tel']").addClass("invalid");
+//                return ;
+//            }
             layer.open({type: 2});
             // 判断验证码
             $.ajax({
@@ -245,11 +255,15 @@ $(function () {
                             data: data,
                             url: "/storeClientInfo",
                             success: function (result) {
-                                console.log(result);
+                                layer.closeAll();
                                 if (result.status) {
-                                    layer.closeAll();
+                                    location.href = "/access/"+result.id;
                                 } else {
-
+                                    layer.open({
+                                        "content": result.msg,
+                                        "skin": "msg",
+                                        "time": 2
+                                    });
                                 }
                             }
                         })

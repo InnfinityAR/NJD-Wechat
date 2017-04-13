@@ -6,7 +6,7 @@
         <h3>后台账号列表</h3>
         <div style="padding-left: 0" class="col-lg-6">
             <a class="btn btn-success" href="/{{$admin_prefix}}/{{$controller}}/create">新 增<i class="fa fa-plus"></i></a>&nbsp;
-            <a class="btn btn-primary deleteAll" >批量删除<i class="fa fa-trash-o"></i></a>
+            @if(session('user')->name=='admin')<a class="btn btn-primary deleteAll" >批量删除<i class="fa fa-trash-o"></i></a> @endif
         </div>
         <div style="padding-right:0" class="col-lg-6">
             <label class="searchLabel">Search: <input type="text" aria-controls="editable-sample" value="{{$search}}" class="form-control medium search" id="search-input"></label>
@@ -43,7 +43,7 @@
                     <td>
                         <a href='/{{$admin_prefix}}/{{$controller}}/active/{{$data->id}}'>@if ($data->is_active==1) 冻结账号@else 解除冻结@endif</a>
                         <a href='/{{$admin_prefix}}/{{$controller}}/{{$data->id}}/edit'>修改</a>
-                        <a href='javascript:;' class="del" id="{{$data->id}}">删除</a>
+                        @if(session('user')->name=='admin')<a href='javascript:;' class="del" id="{{$data->id}}">删除</a>@endif
                     </td>
                 </tr>
                 @endforeach

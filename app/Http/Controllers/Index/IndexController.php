@@ -27,8 +27,7 @@ class IndexController extends CommonController {
 
     // 保存用户信息
     public function storeClientInfo(Request $request) {
-        $back["status"] = true;
-        return $back;
+        
         $input = $request->except("_token", "code");
         $input["status"] = 1;
         $input['create_time'] = time();
@@ -43,6 +42,7 @@ class IndexController extends CommonController {
         if ($client = Client::where($map)->first()) {       // 如果房屋信息已存在数据库则直接读取
             if($client->price){
                 $back["status"] = true;
+                $back["id"] = $client->id;
             }else{
                 $back["status"] = false;
                 $back["msg"] = "查询失败！";
@@ -58,31 +58,32 @@ class IndexController extends CommonController {
                 $token_url = "http://open.fangjia.com/accessToken?username=$username&password=$password&appKey=$appkey";
                 $token_result = json_decode(file_get_contents($token_url), true);
                 $token = $token_result["result"]["token"];
-
+                
                 if ($token) {
-                    $update_data["price"] = 200;
-                    $update_data["average_price"] = 150;
-                    Client::where("id", $res->id)->update($update_data);
-                    $back["status"] = true;
-//                    // 第三方评估
-//                    $url = "http://open.fangjia.com/property/transaction";
-//                    $url .= "?token=$token";
-//                    $url .= "&serviceCode=S001";
-//                    $url .= "&city=南京";
-//                    $url .= "&district=" . $input["district"];
-//                    $url .= "&buildingNumber=" . $input["house_number"];
-//                    $url .= "&size=" . $input["house_area"];
-//                    $url .= "&floor=" . $input["floor"];
-//                    $url .= "&maxFloor=" . $input["total_floor"];
-//                    $url .= "&name=" . $input["house_addr"];
-//                    $result = json_decode(file_get_contents($url), true);
-//                    dd($result);
+                    
+                    // 第三方评估
+                    $url = "http://open.fangjia.com/property/evaluate";
+                    $url .= "?token=$token";
+                    $url .= "&city=南京";
+                    $url .= "&district=" . $input["district"];
+                    $url .= "&size=" . $input["house_area"];
+                    $url .= "&name=" . $input["house_addr"];
+                    if($input["floor"]){
+                        $url .= "&floor=" . $input["floor"];
+                    }
+                    if($input["total_floor"]){
+                        $url .= "&maxFloor=" . $input["total_floor"];
+                    }
+                    
+                    $result = json_decode(file_get_contents($url), true);
+                    dd($result);
 //                    if ($result["code"] == 200) {     // 请求成功
 //                        // 更新用户房屋数据
-//                        $update_data["price"] = $result["result"]["totalPrice"];
-//                        $update_data["average_price"] = $result["result"]["avgPrice"];
+//                        $update_data["price"] = $result["result"]["totalPrice"] / 10000;
+//                        $update_data["average_price"] = $result["result"]["avgPrice"] / 10000;
 //                        Client::where("id", $res->id)->update($update_data);
 //                        
+//                        $back["id"] = $res->id;
 //                        $back["status"] = true;
 //                    }else{
 //                        $back["status"] = false;
@@ -102,10 +103,10 @@ class IndexController extends CommonController {
     }
 
     // 展示评估结果
-    public function access($client_id = 0) {
+    public function access($client_id) {
         $client = Client::where("id", $client_id)->first();
-        
-        return view("index.index.access", compact("data"));
+        $price = $client->price;
+        return view("index.index.access", compact("price", "client_id"));
     }
 
     // 提交申请
@@ -135,11 +136,11 @@ class IndexController extends CommonController {
         if ($res) {
             // 向客户经理发送短信
             $this->sendMsgToManager($client_id);
-            $back["status"] = true;
+            
         } else {
             $back["status"] = false;
         }
-        return $back;
+        return redirect("/success");
     }
     
     // 申请成功页面
@@ -150,7 +151,7 @@ class IndexController extends CommonController {
     // 动态获取地址
     public function getAddr(Request $request) {
         $search = urldecode($request->get("query"));
-        $addrs = Residentialarea::where("residentialname", "like", "%" . $search . "%")->take(10)->get()->toArray();
+        $addrs = Residentialarea::where("residentialname", "like", "%" . $search . "%")->distinct("residentialname")->take(10)->get()->toArray();
         $data = array();
         foreach ($addrs as $addr) {
             $arr["id"] = $addr["residentialname"];
@@ -163,7 +164,7 @@ class IndexController extends CommonController {
     // 向客户经理发送信息
     public function sendMsgToManager($client_id) {
         // 存入record
-        $client = Client::where("id", $id)->first();
+        $client = Client::where("id", $client_id)->first();
         $record_data["send_tel"] = getField($client->user_id, "user", "tel");
         $record_data["create_time"] = $record_data["send_time"] = time();
         $record_data["client_tel"] = $client->tel;
@@ -171,8 +172,8 @@ class IndexController extends CommonController {
         $record_data["client_name"] = $client->name . $sex;
         $record_data["house_addr"] = $client->house_addr;
         $record_data["house_area"] = $client->house_area;
-        $record_data["price"] = $client->price;
-        $record_data["loan_price"] = $client->loac_price;
+        $record_data["price"] = $client->price."万元";
+        $record_data["loan_price"] = $client->loan_price;
         $record_data["status"] = 1;
         $res = Record::create($record_data);
 

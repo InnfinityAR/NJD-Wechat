@@ -26,7 +26,7 @@
             <form class="form-signin" method="post" >
                 <div class="form-signin-heading text-center">
                     <h1 class="sign-title">登 录</h1>
-                    <img src="{{asset('resources/style/admin/images/login-logo.png')}}" alt=""/>
+                    <img src="{{asset('resources/style/index/images/logo.png')}}" alt=""/>
                 </div>
                 <div class="login-wrap">
                     <input type="text" class="form-control" name="name" placeholder="用户名" autofocus>

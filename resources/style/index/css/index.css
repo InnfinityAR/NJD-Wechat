@@ -163,6 +163,10 @@
 }
 .accessResult .apply a{
     color: #fff;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    display: block;
 }
 
 /* * 成功页面 * */
@@ -179,4 +183,5 @@
     color:#b2b2b2;
     text-align: center;
     margin-bottom: 10px;
+    
 }

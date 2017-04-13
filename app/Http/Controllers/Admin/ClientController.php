@@ -12,6 +12,10 @@ class ClientController extends FormController {
 
     public function index(Request $request, $status = 0) {
         $search = request("search", $default = "");
+        
+        $user_ids = DB::table("role_user")->where("role_id", 3)->distinct("user_id")->pluck("user_id")->toArray();
+        $users = User::whereIn("id", $user_ids)->get();
+        
         // 判断用户角色
         $user_id = session("user")->id;
         $role_ids = DB::table("role_user")->where("user_id", $user_id)->pluck("role_id")->toArray();
@@ -36,7 +40,7 @@ class ClientController extends FormController {
                 })->orderBy("id", "desc")->paginate(10);
         $datas->appends(['search' => $search])->render();
         
-        return view("admin.client.index", compact("datas", "status", "search", "flag"));
+        return view("admin.client.index", compact("datas", "status", "search", "flag","users"));
     }
 
     // 添加备注
@@ -63,8 +67,7 @@ class ClientController extends FormController {
     // 分配客户
     public function assign(Request $request) {
         // 获取要分配的客户经理id
-        $search = $request->get("search");
-        $user_id = User::where("tel", "like", "%" . $search . "%")->orWhere("name", "like", "%" . $search . "%")->pluck("id")->first();
+        $user_id = $request->get("user_id");
         
         // 分配
         if($user_id){
@@ -82,7 +85,6 @@ class ClientController extends FormController {
             $back["msg"] = "无此客户经理";
         }
         return $back;
-        
-        
     }
+    
 }

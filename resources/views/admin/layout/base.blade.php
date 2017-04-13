@@ -10,7 +10,6 @@
         <!--common-->
         <link href="{{asset('resources/style/admin/css/style.css')}}" rel="stylesheet">
         <link href="{{asset('resources/style/admin/css/style-responsive.css')}}" rel="stylesheet">
-        <link href="{{asset('resources/style/admin/js/DataTables/media/css/jquery.dataTable.css')}}" rel="stylesheet">
         
         @yield("head")
 
