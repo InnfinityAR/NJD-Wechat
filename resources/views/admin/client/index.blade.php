@@ -30,7 +30,8 @@
                     <th>房屋性质</th>
                     <th>房屋地址</th>
                     <th>住房面积</th>
-                    <th>房屋估价</th>
+                    <th>房屋总估价</th>
+                    <th>房屋均价</th>
                     <th>创建时间</th>
                     <th>状态</th>
                     <th>指派人</th>
@@ -46,9 +47,10 @@
                     <td>{{$data->name}}@if($data->sex==1)先生 @else 女士@endif</td>
                     <td>{{$data->tel}}</td>
                     <td>@if($data->house_type==1) 住宅 @else 商用 @endif</td>
-                    <th>{{$data->district}}区{{$data->house_addr}}{{$data->house_number}}{{$data->floor}}层</th>
+                    <th>{{$data->district}}区{{$data->house_addr}}@if($data->house_number){{$data->house_number}} @endif @if($data->floor){{$data->floor}}层 @endif</th>
                     <td>{{$data->house_area}}/㎡</td>
                     <td>{{$data->price}}</td>
+                    <td>{{$data->average_price}}</td>
                     <td>{{date("Y-m-d H:i",$data->create_time)}}</td>
                     <td>{{getStatus($data->status)}}</td>
                     <td>{{getField($data->user_id, "user", "nickname")}}</td>
@@ -138,7 +140,7 @@
                                 layer.msg(res.msg,{icon:6});
                                 setTimeout(function(){
                                     location.reload();
-                                },2000);
+                                },1000);
                             }else{
                                 layer.msg(res.msg,{icon:5})
                             }

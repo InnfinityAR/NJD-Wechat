@@ -34,7 +34,8 @@ class ClientController extends FormController {
                         $query->where("user_id", $user_id);
                     }
                 })->orderBy("id", "desc")->paginate(10);
-                
+        $datas->appends(['search' => $search])->render();
+        
         return view("admin.client.index", compact("datas", "status", "search", "flag"));
     }
 

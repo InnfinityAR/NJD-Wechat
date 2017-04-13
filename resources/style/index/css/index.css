@@ -30,13 +30,9 @@
 .form .formControl .total-floor-span{
     margin-left: 3%;
 }
-.form .formControl .sex-input{
-    width: 40%;
-    display: inline-block;
+
+.form .formControl label{
     margin-right: 5%;
-}
-.form .formControl .sex-span label{
-    margin-right: 3%;
 }
 .form .formControl .code-input{
     width: 40%;
@@ -66,7 +62,7 @@
     line-height: 40px;
     height: 40px;
     text-align: center;
-    
+
 }
 .form .invalid{
     border-color: #fc464b;
@@ -75,4 +71,112 @@
     background-color: graytext;
 }
 
+/* * 城市页 * */
+.tip{
+    height: 45px;
+    background: #f8f8f8;
+    line-height: 45px;
+    text-align: center;
+}
+.line{
+    width: 35px;
+    height: 1px;
+    background: #dfdfdf;
+    display: inline-block;
+    margin:0 3px 5px 3px;
+}
+.choose{
+    color: #b2b2b2;
+    font-size: 15px;
+}
+.cityList ul{
+    list-style: none;
+    width: 90%;
+    margin: auto;
+    padding: 0;
+}
+.cityList ul li{
+    display: block;
+    height: 60px;
+    border-bottom: 1px solid #ddd;
+}
+.cityList ul li span{
+    font-size: 18px;
+    height: 60px;
+    line-height: 60px;
+    float:left;
+}
+.cityList ul li a{
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    height: 30px;
+    width: 90px;
+    float:right;
+    color:#fff;
+    background: #fc464b;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 15px;
+}
 
+/* * 评估页面 * */
+.accessResult{
+    margin-top: 40px; 
+}
+.accessResult .result{
+
+    font-size: 18px;
+    text-align: center;
+}
+.accessResult .result span{
+    font-size: 26px;
+}
+.accessResult .houseImg{
+    text-align: center;
+    margin-top: 20px;
+}
+.accessResult .loan{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+}
+.accessResult .loan input{
+    width: 20%;
+    display: inline-block;
+}
+.accessResult .tips{
+    text-align: center;
+    color:#b2b2b2;
+    margin-top: 10px;
+}
+.accessResult .apply{
+    height: 35px;
+    background: #fc464b;
+    text-align: center;
+    line-height: 35px;
+    width: 90%;
+    margin: auto;
+    border-radius: 3px;
+    margin-top: 35px;
+}
+.accessResult .apply a{
+    color: #fff;
+}
+
+/* * 成功页面 * */
+.humanDiv{
+    text-align: center;
+    margin-top: 50px;
+}
+.success{
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 0;
+}
+.tip1,tip2,tip3{
+    color:#b2b2b2;
+    text-align: center;
+    margin-bottom: 10px;
+}

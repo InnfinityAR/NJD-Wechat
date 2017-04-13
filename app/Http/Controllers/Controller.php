@@ -18,8 +18,8 @@ class Controller extends BaseController
     public function sendCode(Request $request) {
         $mobile = $request->input("tel");
         if ($mobile) {
-            $code = rand(100000, 999999);
-            $res = sendTemplateSMS($mobile, array($code, '5'), "1");
+            $code = rand(1000, 9999);
+            $res = sendTemplateSMS($mobile, array($code), "167098");
             if(!$res){
                 $back['status'] = 0;
                 $back['msg'] = "短信发送失败";

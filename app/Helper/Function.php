@@ -26,9 +26,9 @@ function getField($value, $table, $field = "name", $condition = 'id') {
  */
 function sendTemplateSMS($to, $datas, $tempId, $accountSid = '', $accountToken = '', $appId = '') {
     //初始化REST SDK
-    $accountSid = '8aaf0708567749f0015677702a12004b';
-    $accountToken = '2e4389d38a4e43abadd6ed69439fd657';
-    $appId = '8a216da8575110490157739048b913a8';
+    $accountSid = '8a216da85b3c225d015b5ffefd3b0f57';
+    $accountToken = '1997eeacb6024c7e8ebec9473e256d5e';
+    $appId = '8aaf07085b5fee9a015b603c6c7f0026';
 
     $serverIP = 'app.cloopen.com';
     $serverPort = '8883';

@@ -18,94 +18,30 @@
             <div class="logo">
                 <img style="width: 40%" src="/resources/style/index/images/logo.png">
             </div>
-            <div class="step">
-                <img style="width: 80%" src="/resources/style/index/images/step1.png">
+            <div class="tip">
+                <div class="line"></div>
+                <span class="choose">请选择您所在的城市</span>
+                <div class="line"></div>
             </div>
-            <div class="form">
-                <form>
-                    <div class="formGroup">
-                        <label class="labelTitle">所在区</label>
-                        <div class="formControl">
-                            <select class="form-control" name="district">
-                                <option value="0">请选择房屋所在区</option>
-                                @foreach($districts as $district)
-                                <option value="{{$district->districtname}}">{{$district->districtname}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <label class="labelTitle">房屋性质</label>
-                        <div class="formControl">
-                            <select class="form-control" name="house_type">
-                                <option value="0">请选择房屋性质</option>
-                                <option value="1">住宅</option>
-                                <option value="2">商用</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="formGroup residentialAreaDiv">
-                        <label class="labelTitle">房屋地址</label>
-                        <div class="formControl">
-                            <input type="text" name="house_addr" placeholder="请填写房屋所在小区或地址" class="form-control complete">
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <label class="labelTitle">所在楼栋</label>
-                        <div class="formControl">
-                            <input type="text" name="house_number" placeholder="如：1栋1单元" class="form-control">
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <label class="labelTitle">所在楼层</label>
-                        <div class="formControl">
-                            <span>所在</span>
-                            <input type="number" name="floor" class="form-control floor-input">
-                            <span>层</span>
-                            <span class="total-floor-span">共</span>
-                            <input type="number" name="total_floor" class="form-control floor-input">
-                            <span >层</span>
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <label class="labelTitle">房屋面积</label>
-                        <div class="formControl">
-                            <input type="number" name="house_area" placeholder="请填写房屋面积/㎡" class="form-control">
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <label class="labelTitle">姓名</label>
-                        <div class="formControl">
-                            <input type="text" name="name" placeholder="请填写您的姓名"  class="form-control">
-
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <label class="labelTitle">性别</label>
-                        <div class="formControl">
-                            <label><input type="radio" name="sex" checked="checked" value="1">先生</label>
-                            <label><input type="radio" name="sex" value="2">女士</label>
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <label class="labelTitle">手机号</label>
-                        <div class="formControl">
-                            <input type="tel" name="tel" placeholder="请填写您的手机号" class="form-control">
-                        </div>
-                    </div>
-                    <div class="formGroup">
-                        <label class="labelTitle">验证码</label>
-                        <div class="formControl">
-                            <input type="number" name="code" placeholder="验证码" class="form-control code-input">
-                            <span class="code-span">
-                                <a class="getCode">获取验证码</a>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="formGroup assessDiv">
-                        <a class="assess">马上评估</a>
-                    </div>
-                </form>
+            <div class="cityList">
+                <ul>
+                    <li>
+                        <span>南京</span>
+                        <a href="/">立即申请</a>
+                    </li>
+                    <li>
+                        <span>北京</span>
+                        <a href="javascript:;">立即申请</a>
+                    </li>
+                    <li>
+                        <span>上海</span>
+                        <a href="javascript:;">立即申请</a>
+                    </li>
+                    <li>
+                        <span>广州</span>
+                        <a href="javascript:;">立即申请</a>
+                    </li>
+                </ul>
             </div>
         </div>
         <script>

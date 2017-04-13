@@ -46,14 +46,19 @@ Route::group(["namespace" => "Admin", "prefix" => config("app.admin_prefix"), "m
     Route::resource("client", "ClientController");                                                              // 客户管理
     Route::resource("residentialarea", "ResidentialareaController");                                            // 小区管理
     Route::resource("district", "DistrictController");                                                          // 南京区域管理
+    Route::get("record/status/{status?}", "RecordController@index");                                        // 短信记录列表
+    Route::resource("record", "RecordController");                                                              // 短信记录管理
     
 });
 /* * 后台路由* */
 
 /* * 前台路由* */
 Route::group(["namespace"=>"Index"], function() {
+    Route::get("/city", "IndexController@city");                                                            // 选择城市
     Route::get("/", "IndexController@index");
     Route::post("/storeClientInfo", "IndexController@storeClientInfo");                                     // 保存用户信息
     Route::get("assignClient", "IndexController@assignClient");                                             // 自动分配客户
     Route::get("getAddr", "IndexController@getAddr");                                                       // 动态获取地址
+    Route::get("access", "IndexController@access");                                                         // 评估结果
+    Route::get("success", "IndexController@success");                                                       // 成功页面
 });

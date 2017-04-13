@@ -19,9 +19,9 @@ global $accountSid, $accountToken, $appId, $serverIP, $serverPort, $softVersion;
 
 
 //徐鑫测试账号
-$accountSid = "aaf98f895335f2be01533b0d8af909de";
-$accountToken = "13def111556942bd904e76135b3c928f";
-$appId = '8a48b5515388ec150153bb062ed04c0f';
+$accountSid = "8a216da85b3c225d015b5ffefd3b0f57";
+$accountToken = "1997eeacb6024c7e8ebec9473e256d5e";
+$appId = '8aaf07085b5fee9a015b603c6c7f0026';
 
 $serverIP = 'sandboxapp.cloopen.com';
 //        说明：请求地址。
