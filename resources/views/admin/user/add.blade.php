@@ -70,6 +70,20 @@
 @section('script')
 <script>
     $(function(){
+        $("input[name='name']").blur(function(){
+            var name = $(this).val();
+            if(name){
+                $.ajax({
+                    type:"get",
+                    url:"/"+admin_prefix+"/user/isRepeat?name="+name,
+                    success:function(res){
+                        if(res.status){
+                            layer.tips("用户名已存在",$("input[name='name']"));
+                        }
+                    }
+                });
+            }
+        });
         $("input[name=password]").blur(function(){
             var password = $(this).val();
             if(password.length<6||password.length>20){

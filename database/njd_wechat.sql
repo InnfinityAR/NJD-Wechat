@@ -11,7 +11,7 @@
  Target Server Version : 50715
  File Encoding         : utf-8
 
- Date: 04/13/2017 12:49:40 PM
+ Date: 04/13/2017 17:25:15 PM
 */
 
 SET NAMES utf8mb4;
@@ -34,13 +34,13 @@ CREATE TABLE `backmenu` (
   `is_active` tinyint(1) unsigned DEFAULT NULL COMMENT '网站底部显示',
   `icon` varchar(55) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '导航图标',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Records of `backmenu`
 -- ----------------------------
 BEGIN;
-INSERT INTO `backmenu` VALUES ('3', '网站配置管理', '0', '2', 'backmenu', '0', 'BackmenuController@index', null, null, null, 'fa-cogs'), ('4', '后台菜单列表', '3', '1', 'backmenu', '0', 'BackmenuController@index', null, null, null, null), ('5', '新增后台菜单', '3', '2', '', '1', 'BackmenuController@create', null, null, null, null), ('6', '新增后台菜单处理', '3', '3', '', '1', 'BackmenuController@store', null, null, null, null), ('7', '修改后台菜单', '3', '4', null, '1', 'BackmenuController@edit', null, null, null, null), ('8', '修改后台菜单处理', '3', '5', null, '1', 'BackmenuController@update', null, null, null, null), ('9', '删除后台菜单', '3', '6', null, '1', 'BackmenuController@destroy', null, null, null, null), ('10', 'RBAC', '0', '3', 'user', '0', 'UserController@index', null, null, null, 'fa-users'), ('11', '后台用户列表', '10', '0', 'user', '0', 'UserController@index', null, null, null, ''), ('12', '新增后台用户', '10', '0', '', '1', 'UserController@create', null, null, null, ''), ('13', '新增后台用户处理', '10', '0', '', '1', 'UserController@store', null, null, null, ''), ('14', '修改后台用户', '10', '0', '', '1', 'UserController@edit', null, null, null, ''), ('15', '修改后台用户处理', '10', '0', '', '1', 'UserController@update', null, null, null, ''), ('16', '删除后台用户', '10', '0', null, '1', 'UserController@destroy', null, null, null, null), ('17', '修改账户状态', '10', '0', null, '1', 'UserController@active', null, null, null, null), ('18', '角色列表', '10', '0', 'role', '0', 'RoleController@index', null, null, null, ''), ('19', '新增角色', '10', '0', null, '1', 'RoleController@create', null, null, null, null), ('20', '新增角色处理', '10', '0', null, '1', 'RoleController@store', null, null, null, null), ('21', '修改角色', '10', '0', null, '1', 'RoleController@edit', null, null, null, null), ('22', '修改角色处理', '10', '0', null, '1', 'RoleController@update', null, null, null, null), ('23', '删除角色', '10', '0', null, '1', 'RoleController@destroy', null, null, null, null), ('24', '权限列表', '10', '0', 'node', '0', 'NodeController@index', null, null, null, null), ('25', '新增权限', '10', '0', null, '1', 'NodeController@create', null, null, null, null), ('26', '新增权限处理', '10', '0', null, '1', 'NodeController@store', null, null, null, null), ('27', '修改权限', '10', '0', null, '1', 'NodeController@edit', null, null, null, null), ('28', '修改权限处理', '10', '0', null, '1', 'NodeController@update', null, null, null, null), ('29', '删除权限', '10', '0', null, '1', 'NodeController@destroy', null, null, null, null), ('30', '网站首页', '0', '0', null, '1', 'IndexController@index', null, null, null, null), ('69', '修改用户密码', '10', '0', null, '1', 'UserController@changePwd', null, null, null, null), ('113', '客户管理', '0', '0', null, '0', 'ClientController@index', null, null, null, 'fa-tags'), ('114', '客户列表', '113', '1', 'client', '0', 'ClientController@index', null, null, null, null), ('115', '客户新增', '113', '1', '', '1', 'ClientController@create', null, null, null, null), ('116', '客户新增处理', '113', '1', '', '1', 'ClientController@store', null, null, null, null), ('117', '客户修改', '113', '1', '', '1', 'ClientController@edit', null, null, null, null), ('118', '客户修改处理', '113', '1', '', '1', 'ClientController@update', null, null, null, null), ('119', '客户删除', '113', '1', '', '1', 'ClientController@destroy', null, null, null, null), ('120', '添加备注', '113', '0', null, '1', 'ClientController@remark', null, null, null, null), ('121', '更改客户状态', '113', '0', null, '1', 'ClientController@changeStatus', null, null, null, null), ('122', '小区管理', '0', '0', null, '0', null, null, null, null, 'fa-tags'), ('129', '小区列表', '122', '1', 'residentialarea', '0', 'ResidentialAreaController@index', null, null, null, null), ('130', '小区新增', '122', '1', '', '1', 'ResidentialAreaController@create', null, null, null, null), ('131', '小区新增处理', '122', '1', '', '1', 'ResidentialAreaController@store', null, null, null, null), ('132', '小区修改', '122', '1', '', '1', 'ResidentialAreaController@edit', null, null, null, null), ('133', '小区修改处理', '122', '1', '', '1', 'ResidentialAreaController@update', null, null, null, null), ('134', '小区删除', '122', '1', '', '1', 'ResidentialAreaController@destroy', null, null, null, null), ('135', '南京区级列表', '122', '1', 'district', '0', 'DistrictController@index', null, null, null, null), ('136', '南京区级新增', '122', '1', '', '1', 'DistrictController@create', null, null, null, null), ('137', '南京区级新增处理', '122', '1', '', '1', 'DistrictController@store', null, null, null, null), ('138', '南京区级修改', '122', '1', '', '1', 'DistrictController@edit', null, null, null, null), ('139', '南京区级修改处理', '122', '1', '', '1', 'DistrictController@update', null, null, null, null), ('140', '南京区级删除', '122', '1', '', '1', 'DistrictController@destroy', null, null, null, null), ('141', '短信记录管理', '0', '0', null, '0', null, null, null, null, 'fa-tags'), ('142', '短信记录列表', '141', '1', 'record', '0', 'RecordController@index', null, null, null, null), ('143', '短信记录新增', '141', '1', '', '1', 'RecordController@create', null, null, null, null), ('144', '短信记录新增处理', '141', '1', '', '1', 'RecordController@store', null, null, null, null), ('145', '短信记录修改', '141', '1', '', '1', 'RecordController@edit', null, null, null, null), ('146', '短信记录修改处理', '141', '1', '', '1', 'RecordController@update', null, null, null, null), ('147', '短信记录删除', '141', '1', '', '1', 'RecordController@destroy', null, null, null, null);
+INSERT INTO `backmenu` VALUES ('3', '网站配置管理', '0', '2', 'backmenu', '0', 'BackmenuController@index', null, null, null, 'fa-cogs'), ('4', '后台菜单列表', '3', '1', 'backmenu', '0', 'BackmenuController@index', null, null, null, null), ('5', '新增后台菜单', '3', '2', '', '1', 'BackmenuController@create', null, null, null, null), ('6', '新增后台菜单处理', '3', '3', '', '1', 'BackmenuController@store', null, null, null, null), ('7', '修改后台菜单', '3', '4', null, '1', 'BackmenuController@edit', null, null, null, null), ('8', '修改后台菜单处理', '3', '5', null, '1', 'BackmenuController@update', null, null, null, null), ('9', '删除后台菜单', '3', '6', null, '1', 'BackmenuController@destroy', null, null, null, null), ('10', 'RBAC', '0', '3', 'user', '0', 'UserController@index', null, null, null, 'fa-users'), ('11', '后台用户列表', '10', '0', 'user', '0', 'UserController@index', null, null, null, ''), ('12', '新增后台用户', '10', '0', '', '1', 'UserController@create', null, null, null, ''), ('13', '新增后台用户处理', '10', '0', '', '1', 'UserController@store', null, null, null, ''), ('14', '修改后台用户', '10', '0', '', '1', 'UserController@edit', null, null, null, ''), ('15', '修改后台用户处理', '10', '0', '', '1', 'UserController@update', null, null, null, ''), ('16', '删除后台用户', '10', '0', null, '1', 'UserController@destroy', null, null, null, null), ('17', '修改账户状态', '10', '0', null, '1', 'UserController@active', null, null, null, null), ('18', '角色列表', '10', '0', 'role', '0', 'RoleController@index', null, null, null, ''), ('19', '新增角色', '10', '0', null, '1', 'RoleController@create', null, null, null, null), ('20', '新增角色处理', '10', '0', null, '1', 'RoleController@store', null, null, null, null), ('21', '修改角色', '10', '0', null, '1', 'RoleController@edit', null, null, null, null), ('22', '修改角色处理', '10', '0', null, '1', 'RoleController@update', null, null, null, null), ('23', '删除角色', '10', '0', null, '1', 'RoleController@destroy', null, null, null, null), ('24', '权限列表', '10', '0', 'node', '0', 'NodeController@index', null, null, null, null), ('25', '新增权限', '10', '0', null, '1', 'NodeController@create', null, null, null, null), ('26', '新增权限处理', '10', '0', null, '1', 'NodeController@store', null, null, null, null), ('27', '修改权限', '10', '0', null, '1', 'NodeController@edit', null, null, null, null), ('28', '修改权限处理', '10', '0', null, '1', 'NodeController@update', null, null, null, null), ('29', '删除权限', '10', '0', null, '1', 'NodeController@destroy', null, null, null, null), ('30', '网站首页', '0', '0', null, '1', 'IndexController@index', null, null, null, null), ('69', '修改用户密码', '10', '0', null, '1', 'UserController@changePwd', null, null, null, null), ('113', '客户管理', '0', '0', null, '0', 'ClientController@index', null, null, null, 'fa-tags'), ('114', '客户列表', '113', '1', 'client', '0', 'ClientController@index', null, null, null, null), ('115', '客户新增', '113', '1', '', '1', 'ClientController@create', null, null, null, null), ('116', '客户新增处理', '113', '1', '', '1', 'ClientController@store', null, null, null, null), ('117', '客户修改', '113', '1', '', '1', 'ClientController@edit', null, null, null, null), ('118', '客户修改处理', '113', '1', '', '1', 'ClientController@update', null, null, null, null), ('119', '客户删除', '113', '1', '', '1', 'ClientController@destroy', null, null, null, null), ('120', '添加备注', '113', '0', null, '1', 'ClientController@remark', null, null, null, null), ('121', '更改客户状态', '113', '0', null, '1', 'ClientController@changeStatus', null, null, null, null), ('122', '小区管理', '0', '0', null, '0', null, null, null, null, 'fa-tags'), ('129', '小区列表', '122', '1', 'residentialarea', '0', 'ResidentialAreaController@index', null, null, null, null), ('130', '小区新增', '122', '1', '', '1', 'ResidentialAreaController@create', null, null, null, null), ('131', '小区新增处理', '122', '1', '', '1', 'ResidentialAreaController@store', null, null, null, null), ('132', '小区修改', '122', '1', '', '1', 'ResidentialAreaController@edit', null, null, null, null), ('133', '小区修改处理', '122', '1', '', '1', 'ResidentialAreaController@update', null, null, null, null), ('134', '小区删除', '122', '1', '', '1', 'ResidentialAreaController@destroy', null, null, null, null), ('135', '南京区级列表', '122', '1', 'district', '0', 'DistrictController@index', null, null, null, null), ('136', '南京区级新增', '122', '1', '', '1', 'DistrictController@create', null, null, null, null), ('137', '南京区级新增处理', '122', '1', '', '1', 'DistrictController@store', null, null, null, null), ('138', '南京区级修改', '122', '1', '', '1', 'DistrictController@edit', null, null, null, null), ('139', '南京区级修改处理', '122', '1', '', '1', 'DistrictController@update', null, null, null, null), ('140', '南京区级删除', '122', '1', '', '1', 'DistrictController@destroy', null, null, null, null), ('141', '短信记录管理', '0', '0', null, '0', null, null, null, null, 'fa-tags'), ('142', '短信记录列表', '141', '1', 'record', '0', 'RecordController@index', null, null, null, null), ('143', '短信记录新增', '141', '1', '', '1', 'RecordController@create', null, null, null, null), ('144', '短信记录新增处理', '141', '1', '', '1', 'RecordController@store', null, null, null, null), ('145', '短信记录修改', '141', '1', '', '1', 'RecordController@edit', null, null, null, null), ('146', '短信记录修改处理', '141', '1', '', '1', 'RecordController@update', null, null, null, null), ('147', '短信记录删除', '141', '1', '', '1', 'RecordController@destroy', null, null, null, null), ('148', '获取业务员列表', '113', '0', null, '1', 'ClientController@getSales', null, null, null, null), ('149', '分配客户', '113', '0', null, '1', 'ClientController@assign', null, null, null, null), ('150', '账号查重', '10', '0', null, '1', 'UserController@isRepeat', null, null, null, null);
 COMMIT;
 
 -- ----------------------------
@@ -55,20 +55,26 @@ CREATE TABLE `client` (
   `house_type` tinyint(1) NOT NULL COMMENT '房屋性质  1住宅 2商用',
   `house_area` int(11) NOT NULL COMMENT '房屋面积',
   `create_time` int(11) DEFAULT NULL COMMENT '评估时间',
-  `price` float(10,2) DEFAULT NULL COMMENT '房屋价格 单位元',
+  `price` float(10,4) DEFAULT NULL COMMENT '房屋价格 单位：万元',
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '1已评估 2已申请 3有效客户 4无效客户',
   `remark` text COMMENT '备注说明',
   `district` varchar(255) NOT NULL COMMENT '区域',
-  `floor` int(11) NOT NULL COMMENT '所在楼层数',
-  `total_floor` int(11) NOT NULL COMMENT '总楼层数',
-  `house_number` varchar(255) NOT NULL COMMENT '所在楼栋',
-  `room_number` varchar(255) NOT NULL DEFAULT '' COMMENT '房间号',
+  `floor` int(11) DEFAULT NULL COMMENT '所在楼层数',
+  `total_floor` int(11) DEFAULT NULL COMMENT '总楼层数',
+  `house_number` varchar(255) DEFAULT NULL COMMENT '所在楼栋',
   `user_id` int(11) DEFAULT NULL,
   `house_addr` text,
-  `loan_price` float(10,2) DEFAULT NULL COMMENT '贷款金额 单位：万元',
-  `average_price` float(10,5) DEFAULT NULL COMMENT '均价  单位：元',
+  `loan_price` float(10,4) DEFAULT NULL COMMENT '贷款金额 单位：万元',
+  `average_price` float(10,5) DEFAULT NULL COMMENT '均价  单位：万元',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `client`
+-- ----------------------------
+BEGIN;
+INSERT INTO `client` VALUES ('39', '王雨', '15720826619', '1', '1', '100', '1492072773', null, '1', null, '鼓楼', '2', '5', null, null, '金陵小区', null, null);
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `code`
@@ -80,13 +86,13 @@ CREATE TABLE `code` (
   `code` varchar(10) NOT NULL COMMENT '验证码',
   `create_time` int(11) NOT NULL COMMENT '验证码发送时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `code`
 -- ----------------------------
 BEGIN;
-INSERT INTO `code` VALUES ('2', '15720826619', '3903', '1491967397'), ('3', '15720826619', '702478', '1491984732'), ('4', '15720826619', '921156', '1491981545'), ('5', '15720826619', '8943', '1492047121'), ('6', '15720826619', '8546', '1492049502');
+INSERT INTO `code` VALUES ('2', '15720826619', '3903', '1491967397'), ('3', '15720826619', '702478', '1491984732'), ('4', '15720826619', '921156', '1491981545'), ('5', '15720826619', '8943', '1492047121'), ('6', '15720826619', '8546', '1492049502'), ('7', '15720826619', '2183', '1492059830'), ('8', '15720826619', '2294', '1492069272');
 COMMIT;
 
 -- ----------------------------
@@ -148,13 +154,13 @@ CREATE TABLE `node_backmenu` (
   KEY `backmenu_id_btree` (`backmenu_id`) USING BTREE,
   CONSTRAINT `node_backmenu_ibfk_1` FOREIGN KEY (`backmenu_id`) REFERENCES `backmenu` (`id`) ON DELETE CASCADE,
   CONSTRAINT `node_backmenu_ibfk_2` FOREIGN KEY (`node_id`) REFERENCES `node` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `node_backmenu`
 -- ----------------------------
 BEGIN;
-INSERT INTO `node_backmenu` VALUES ('61', '2', '10'), ('62', '2', '11'), ('63', '2', '12'), ('64', '2', '13'), ('65', '2', '14'), ('66', '2', '15'), ('67', '2', '16'), ('68', '2', '17'), ('69', '2', '30'), ('70', '2', '113'), ('71', '2', '114'), ('72', '2', '115'), ('73', '2', '116'), ('74', '2', '117'), ('75', '2', '118'), ('76', '2', '119'), ('77', '2', '120'), ('78', '2', '121'), ('79', '2', '122'), ('80', '2', '129'), ('81', '2', '130'), ('82', '2', '131'), ('83', '2', '132'), ('84', '2', '133'), ('85', '2', '134'), ('86', '2', '135'), ('87', '2', '136'), ('88', '2', '137'), ('89', '2', '138'), ('90', '2', '139'), ('91', '2', '140'), ('92', '3', '30'), ('93', '3', '113'), ('94', '3', '114'), ('95', '3', '115'), ('96', '3', '116'), ('97', '3', '117'), ('98', '3', '118'), ('99', '3', '119'), ('100', '3', '120'), ('101', '3', '121');
+INSERT INTO `node_backmenu` VALUES ('92', '3', '30'), ('93', '3', '113'), ('94', '3', '114'), ('95', '3', '115'), ('96', '3', '116'), ('97', '3', '117'), ('98', '3', '118'), ('99', '3', '119'), ('100', '3', '120'), ('101', '3', '121'), ('167', '2', '10'), ('168', '2', '11'), ('169', '2', '12'), ('170', '2', '13'), ('171', '2', '14'), ('172', '2', '15'), ('173', '2', '16'), ('174', '2', '17'), ('175', '2', '69'), ('176', '2', '150'), ('177', '2', '30'), ('178', '2', '113'), ('179', '2', '114'), ('180', '2', '115'), ('181', '2', '116'), ('182', '2', '117'), ('183', '2', '118'), ('184', '2', '119'), ('185', '2', '120'), ('186', '2', '121'), ('187', '2', '148'), ('188', '2', '149'), ('189', '2', '122'), ('190', '2', '129'), ('191', '2', '130'), ('192', '2', '131'), ('193', '2', '132'), ('194', '2', '133'), ('195', '2', '134'), ('196', '2', '135'), ('197', '2', '136'), ('198', '2', '137'), ('199', '2', '138'), ('200', '2', '139'), ('201', '2', '140');
 COMMIT;
 
 -- ----------------------------
@@ -171,10 +177,17 @@ CREATE TABLE `record` (
   `send_time` int(11) NOT NULL COMMENT '发送时间',
   `house_addr` varchar(255) NOT NULL COMMENT '房屋所在地址',
   `house_area` float(10,2) NOT NULL COMMENT '房屋面积',
-  `price` float(10,2) NOT NULL COMMENT '房屋估值',
-  `loan_price` float(10,2) NOT NULL COMMENT '期望贷款金额',
+  `price` varchar(255) NOT NULL COMMENT '房屋估值',
+  `loan_price` float(10,4) NOT NULL COMMENT '期望贷款金额',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `record`
+-- ----------------------------
+BEGIN;
+INSERT INTO `record` VALUES ('1', '15720826619', '王雨先生', '1', '15720826619', '1492063535', '1492063535', '金陵小区', '90.00', '300万元', '300.0000'), ('2', '15720826619', '测试先生', '1', '15720826619', '1492069362', '1492069362', '金陵天成', '90.00', '300万元', '240.0000');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `residentialarea`
@@ -286,7 +299,7 @@ CREATE TABLE `user` (
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1', 'admin', '23b959dab5b0be5a5b58a8bb0fbb73b3', '46', '1491985528', '1', null, null), ('3', 'manager', 'f6fdffe48c908deb0f4c3bd36c032e72', '8', '1491990066', '1', null, null), ('4', 'test', 'f6fdffe48c908deb0f4c3bd36c032e72', '2', '1491990758', '1', '15720826619', '测试'), ('5', 'test1', 'f6fdffe48c908deb0f4c3bd36c032e72', '1', '1491919700', '1', '15720826619', '测试1');
+INSERT INTO `user` VALUES ('1', 'admin', '23b959dab5b0be5a5b58a8bb0fbb73b3', '49', '1492075128', '1', null, null), ('3', 'manager', 'f6fdffe48c908deb0f4c3bd36c032e72', '12', '1492075261', '1', null, null), ('4', 'test', 'f6fdffe48c908deb0f4c3bd36c032e72', '2', '1491990758', '1', '15720826619', '测试'), ('5', 'test1', 'f6fdffe48c908deb0f4c3bd36c032e72', '1', '1491919700', '1', '15720826619', '测试1');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

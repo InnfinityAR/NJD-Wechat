@@ -34,6 +34,7 @@ Route::group(["namespace" => "Admin", "prefix" => config("app.admin_prefix"), "m
     Route::match(["get", "post"], "backmenu/insert", "BackmenuController@insert");
     Route::resource("backmenu", "BackmenuController");                                                          // 后台菜单管理
     Route::get("backmenu/level/{level?}", "BackmenuController@index")->where("level", "[0-9]+");                 // 菜单管理列表
+    Route::get("user/isRepeat", "UserController@isRepeat");                                                     // 账号查重
     Route::resource("user", "UserController");                                                                  // 后台账户管理
     Route::get("user/active/{id}", "UserController@active")->where("id", "[0-9]+");                              // 更改账户状态
     Route::match(['get', 'post'], "user/changePwd", "UserController@changepwd");                                 // 修改账号密码

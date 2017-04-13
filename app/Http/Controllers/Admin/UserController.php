@@ -147,5 +147,14 @@ class UserController extends FormController {
             return view("admin.user.changePwd");
         }
     }
+    
+    public function isRepeat(Request $request) {
+        $map["name"] = $request->get("name");
+        
+        if(User::where($map)->first()){
+            $back["status"] = true;
+        }
+        return $back;
+    }
 
 }

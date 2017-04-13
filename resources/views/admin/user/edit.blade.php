@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">账号</label>
                 <div class="col-sm-4">
-                    <input type="text" name="name" value="{{$field->name}}" class="form-control">
+                    <input type="text" name="name" value="{{$field->name}}" readonly="readonly" class="form-control">
                 </div>
             </div>
             <div class="form-group">
