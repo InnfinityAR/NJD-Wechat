@@ -29,7 +29,7 @@
                             <select class="form-control" name="district">
                                 <option value="0">请选择房屋所在区</option>
                                 @foreach($districts as $district)
-                                <option value="{{$district->districtid}}">{{$district->districtname}}</option>
+                                <option value="{{$district->districtname}}">{{$district->districtname}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -111,7 +111,8 @@
         <script>
 $(function () {
     tel_num = "";
-
+    district = "";
+    
     var telReg = /^1[3|4|5|8][0-9]\d{4,8}$/;    // 手机正则
     var nameReg = /^[\u4e00-\u9fa5]{2,4}$/;     // 中文姓名正则
     // 去除提醒框
@@ -121,6 +122,10 @@ $(function () {
     $(".form select").change(function () {
         $(this).removeClass("invalid");
     })
+    $("select[name='district']").change(function(){
+        district = $(this).val();
+        console.log(district)
+    });
 
     // 点击获取验证码
     $(".getCode").click(function () {
@@ -234,15 +239,15 @@ $(function () {
                 "time": 2
             });
         } else {
-//            if(data["tel"]!=tel_num){
-//                layer.open({
-//                    "content": "请勿更改手机号",
-//                    "skin": "msg",
-//                    "time": 2
-//                });
-//                $("input[name='tel']").addClass("invalid");
-//                return ;
-//            }
+            if(data["tel"]!=tel_num){
+                layer.open({
+                    "content": "请勿更改手机号",
+                    "skin": "msg",
+                    "time": 2
+                });
+                $("input[name='tel']").addClass("invalid");
+                return ;
+            }
             layer.open({type: 2});
             // 判断验证码
             $.ajax({
@@ -283,7 +288,8 @@ $(function () {
     $(".complete").bootcomplete({
         url: "/getAddr",
         method: "get",
-        minLength: 2
+        minLength: 2,
+        dataParams:{"district":district}
     });
 
 

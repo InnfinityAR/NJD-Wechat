@@ -27,19 +27,43 @@
                 <ul>
                     <li>
                         <span>南京</span>
-                        <a href="/">立即申请</a>
+                        <a href="/form">立即申请</a>
                     </li>
                     <li>
                         <span>北京</span>
-                        <a href="javascript:;">立即申请</a>
+                        <a href="javascript:;" class="disabled">立即申请</a>
                     </li>
                     <li>
                         <span>上海</span>
-                        <a href="javascript:;">立即申请</a>
+                        <a href="javascript:;" class="disabled">立即申请</a>
                     </li>
                     <li>
                         <span>广州</span>
-                        <a href="javascript:;">立即申请</a>
+                        <a href="javascript:;" class="disabled">立即申请</a>
+                    </li>
+                    <li>
+                        <span>厦门</span>
+                        <a href="javascript:;" class="disabled">立即申请</a>
+                    </li>
+                    <li>
+                        <span>成都</span>
+                        <a href="javascript:;" class="disabled">立即申请</a>
+                    </li>
+                    <li>
+                        <span>重庆</span>
+                        <a href="javascript:;" class="disabled">立即申请</a>
+                    </li>
+                    <li>
+                        <span>天津</span>
+                        <a href="javascript:;" class="disabled">立即申请</a>
+                    </li>
+                    <li>
+                        <span>杭州</span>
+                        <a href="javascript:;" class="disabled">立即申请</a>
+                    </li>
+                    <li>
+                        <span>深圳</span>
+                        <a href="javascript:;" class="disabled">立即申请</a>
                     </li>
                 </ul>
             </div>

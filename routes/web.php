@@ -56,8 +56,8 @@ Route::group(["namespace" => "Admin", "prefix" => config("app.admin_prefix"), "m
 
 /* * 前台路由* */
 Route::group(["namespace"=>"Index"], function() {
-    Route::get("/city", "IndexController@city");                                                            // 选择城市
-    Route::get("/", "IndexController@index");
+    Route::get("/form", "IndexController@form");                                                            // 填写表单
+    Route::get("/", "IndexController@index");                                                               // 选择城市
     Route::post("/storeClientInfo", "IndexController@storeClientInfo");                                     // 保存用户信息
     Route::get("assignClient", "IndexController@assignClient");                                             // 自动分配客户
     Route::get("getAddr", "IndexController@getAddr");                                                       // 动态获取地址

@@ -43,7 +43,7 @@
     display: inline-block;
     width: 50%;
     color: #fff;
-    background-color: #fc464b;
+    background-color: #0094ff;
     height: 35px;
     border-radius: 5px;
     text-align: center;
@@ -58,20 +58,23 @@
     text-decoration: none;
     color: #fff;
     border-radius: 5px;
-    background-color: #fc464b;
+    background-color: #0094ff;
     line-height: 40px;
     height: 40px;
     text-align: center;
 
 }
 .form .invalid{
-    border-color: #fc464b;
+    border-color: #0094ff;
 }
 .form .formControl .code-span .disabled{
     background-color: graytext;
 }
 
 /* * 城市页 * */
+.cityList .disabled{
+    background-color: graytext;
+}
 .tip{
     height: 45px;
     background: #f8f8f8;
@@ -114,7 +117,7 @@
     width: 90px;
     float:right;
     color:#fff;
-    background: #fc464b;
+    background: #0094ff;
     border-radius: 2px;
     text-align: center;
     line-height: 30px;
@@ -153,7 +156,7 @@
 }
 .accessResult .apply{
     height: 35px;
-    background: #fc464b;
+    background: #0094ff;
     text-align: center;
     line-height: 35px;
     width: 90%;

@@ -49,9 +49,6 @@ class Controller extends BaseController
         $map["tel"] = $request->input("tel");
         $code = Code::where($map)->orderBy("id","desc")->first();
         
-        $back["status"] = true;
-        return $back;
-        
         if(!$code){
             $back["status"] = 0;
             $back["msg"] = "验证码错误";
@@ -72,8 +69,6 @@ class Controller extends BaseController
         $tomorrow = strtotime(date('Y-m-d',strtotime('+1 day')));
         $times = Code::where("tel", $tel)->whereBetween("create_time",[$today, $tomorrow])->count();
         
-        $back["status"] = true;
-        return $back;
         if($times>=3){
             $back["status"] = false;
             $back["msg"] = "已超过今日查询上限";

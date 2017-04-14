@@ -15,14 +15,15 @@ use App\Http\Model\Record;
 class IndexController extends CommonController {
 
     // 选择城市页面
-    public function city() {
-        return view("index.index.city");
-    }
-    
-    public function index() {
+    public function form() {
         // 获取区
         $districts = District::all();
         return view("index.index.index", compact("districts"));
+    }
+    
+    public function index() {
+        return view("index.index.city");
+        
     }
 
     // 保存用户信息
@@ -31,8 +32,7 @@ class IndexController extends CommonController {
         $input = $request->except("_token", "code");
         $input["status"] = 1;
         $input['create_time'] = time();
-
-        $map["tel"] = $input["tel"];
+        
         $map["district"] = $input["district"];
         $map["house_number"] = $input["house_number"];
         $map["house_area"] = $input["house_area"];
@@ -62,33 +62,35 @@ class IndexController extends CommonController {
                 if ($token) {
                     
                     // 第三方评估
-                    $url = "http://open.fangjia.com/property/evaluate";
+                    $url = "http://open.fangjia.com/property/transaction";
                     $url .= "?token=$token";
-                    $url .= "&city=南京";
-                    $url .= "&district=" . $input["district"];
+                    $url .= "&serviceCode=S001";
+                    $url .= "&city=". urlencode("南京");
+                    $url .= "&district=" . urlencode($input["district"]);
                     $url .= "&size=" . $input["house_area"];
-                    $url .= "&name=" . $input["house_addr"];
+                    $url .= "&address=" . urlencode($input["house_addr"]);
+                    if($input["house_number"]){
+                        $url .= "&buildingNumber=" . urlencode($input["house_number"]);
+                    }
                     if($input["floor"]){
                         $url .= "&floor=" . $input["floor"];
                     }
                     if($input["total_floor"]){
                         $url .= "&maxFloor=" . $input["total_floor"];
                     }
-                    
                     $result = json_decode(file_get_contents($url), true);
-                    dd($result);
-//                    if ($result["code"] == 200) {     // 请求成功
-//                        // 更新用户房屋数据
-//                        $update_data["price"] = $result["result"]["totalPrice"] / 10000;
-//                        $update_data["average_price"] = $result["result"]["avgPrice"] / 10000;
-//                        Client::where("id", $res->id)->update($update_data);
-//                        
-//                        $back["id"] = $res->id;
-//                        $back["status"] = true;
-//                    }else{
-//                        $back["status"] = false;
-//                        $back["msg"] = "查询失败！";
-//                    }
+                    
+                    if ($result["code"] == 200) {     // 请求成功
+                        // 更新用户房屋数据
+                        $update_data["price"] = $result["result"]["totalPrice"] / 10000;
+                        Client::where("id", $res->id)->update($update_data);
+                        
+                        $back["id"] = $res->id;
+                        $back["status"] = true;
+                    }else{
+                        $back["status"] = false;
+                        $back["msg"] = "暂不支持该小区估价！";
+                    }
                 } else {
                     $back["status"] = false;
                     $back["msg"] = "第三方验证失败！";
@@ -150,8 +152,9 @@ class IndexController extends CommonController {
 
     // 动态获取地址
     public function getAddr(Request $request) {
+        
         $search = urldecode($request->get("query"));
-        $addrs = Residentialarea::where("residentialname", "like", "%" . $search . "%")->distinct("residentialname")->take(10)->get()->toArray();
+        $addrs = Residentialarea::where("residentialname", "like", $search . "%")->distinct()->take(10)->get()->toArray();
         $data = array();
         foreach ($addrs as $addr) {
             $arr["id"] = $addr["residentialname"];
