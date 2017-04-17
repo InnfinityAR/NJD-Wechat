@@ -27,7 +27,6 @@
                     <th class="id">Id</th>
                     <th>用户姓名</th>
                     <th>联系方式</th>
-                    <th>房屋性质</th>
                     <th>房屋地址</th>
                     <th>住房面积(㎡)</th>
                     <th>房屋总估价(万元)</th>
@@ -46,7 +45,6 @@
                     <td>{{$data->id}}</td>
                     <td>{{$data->name}}@if($data->sex==1)先生 @else 女士@endif</td>
                     <td>{{$data->tel}}</td>
-                    <td>@if($data->house_type==1) 住宅 @else 商用 @endif</td>
                     <th>{{$data->district}}区{{$data->house_addr}}@if($data->house_number){{$data->house_number}} @endif @if($data->floor){{$data->floor}}层 @endif</th>
                     <td>{{$data->house_area}}</td>
                     <td>{{$data->price}}</td>

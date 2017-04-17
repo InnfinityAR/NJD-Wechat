@@ -34,16 +34,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="formGroup">
-                        <label class="labelTitle">房屋性质</label>
-                        <div class="formControl">
-                            <select class="form-control" name="house_type">
-                                <option value="0">请选择房屋性质</option>
-                                <option value="1">住宅</option>
-                                <option value="2">商用</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="formGroup residentialAreaDiv">
                         <label class="labelTitle">房屋地址</label>
                         <div class="formControl">
