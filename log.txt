@@ -454,3 +454,35 @@ response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </TemplateSMS>
 </Response>
 
+request body = <TemplateSMS>
+                    <to>15720826619</to> 
+                    <appId>8aaf07085b5fee9a015b603c6c7f0026</appId>
+                    <templateId>167098</templateId>
+                    <datas><data>4391</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a216da85b3c225d015b5ffefd3b0f57/SMS/TemplateSMS?sig=8175C358022B4CBD01F29028F1884EB6
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Response>
+    <statusCode>000000</statusCode>
+    <TemplateSMS>
+        <smsMessageSid>26be6f6525454b9186a90cd6e401d4e9</smsMessageSid>
+        <dateCreated>20170417094533</dateCreated>
+    </TemplateSMS>
+</Response>
+
+request body = <TemplateSMS>
+                    <to>15720826619</to> 
+                    <appId>8aaf07085b5fee9a015b603c6c7f0026</appId>
+                    <templateId>167103</templateId>
+                    <datas><data>王雨先生</data><data>威尼斯水城</data><data>100</data><data>218.98万元</data><data>250</data><data>15720826619</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a216da85b3c225d015b5ffefd3b0f57/SMS/TemplateSMS?sig=A83D9C9CDC496A5F7999FC3F3164E081
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Response>
+    <statusCode>000000</statusCode>
+    <TemplateSMS>
+        <smsMessageSid>09e5ba56685443d780db2eed08cfad1d</smsMessageSid>
+        <dateCreated>20170417094634</dateCreated>
+    </TemplateSMS>
+</Response>
+

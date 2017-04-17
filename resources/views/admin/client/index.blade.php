@@ -170,15 +170,17 @@
                 url:"/"+admin_prefix+"/client/assign",
                 data:data,
                 success:function(res){
-                    layer.msg("分配成功!",{icon:6});
-                    setTimeout(function(){
-                        location.reload();
-                    },2000)
-                }else{
-                    layer.msg("分配失败!",{icon:5});
+                    if(res.status){
+                        layer.msg("分配成功!",{icon:6});
+                        setTimeout(function(){
+                            location.reload();
+                        },2000);
+                    }else{
+                        layer.msg("分配失败!",{icon:5});
+                    }
                 }
             })
         });
-    })
+    });
 </script>
 @endsection
