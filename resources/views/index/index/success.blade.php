@@ -18,6 +18,9 @@
             <div class="logo">
                 <img style="width: 40%" src="/resources/style/index/images/logo.png">
             </div>
+            <div class="step">
+                <img style="width: 80%" src="/resources/style/index/images/step3.png">
+            </div>
             <div class="humanDiv">
                 <img style="width: 30%" src="/resources/style/index/images/human.png">
             </div>
