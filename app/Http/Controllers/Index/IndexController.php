@@ -18,11 +18,11 @@ class IndexController extends CommonController {
     public function form() {
         // 获取区
         $districts = District::all();
-        return view("index.index.index", compact("districts"));
+        return view("index.index.form", compact("districts"));
     }
     
     public function index() {
-        return view("index.index.city");
+        return view("index.index.index");
         
     }
 
