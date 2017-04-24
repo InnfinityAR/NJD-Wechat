@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>南京贷微信</title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+        <title>南京贷房屋抵押贷快速申请平台</title>
         <link rel="stylesheet" href="/resources/static/bootstrap/bootstrap.css"/>
         <link rel="stylesheet" href="/resources/static/bootcomplete/dist/bootcomplete.css"/>
         <link rel="stylesheet" href="/resources/style/index/css/index.css"/>
@@ -43,17 +43,17 @@
                     <div class="formGroup">
                         <label class="labelTitle">所在楼栋</label>
                         <div class="formControl">
-                            <input type="text" name="house_number" placeholder="如：1栋1单元" class="form-control">
+                            <input type="text" name="house_number" placeholder="如：1栋1单元(非必填)" class="form-control">
                         </div>
                     </div>
                     <div class="formGroup">
                         <label class="labelTitle">所在楼层</label>
                         <div class="formControl">
                             <span>所在</span>
-                            <input type="number" name="floor" max="2" class="form-control floor-input">
+                            <input type="number" name="floor" max="2" style="width:67px"  class="form-control floor-input" placeholder="非必填">
                             <span>层</span>
                             <span class="total-floor-span">共</span>
-                            <input type="number" name="total_floor" max="2" class="form-control floor-input">
+                            <input type="number" name="total_floor" max="2" style="width:67px"  class="form-control floor-input" placeholder="非必填">
                             <span >层</span>
                         </div>
                     </div>
@@ -64,9 +64,9 @@
                         </div>
                     </div>
                     <div class="formGroup">
-                        <label class="labelTitle">姓名</label>
+                        <label class="labelTitle">姓氏</label>
                         <div class="formControl">
-                            <input type="text" name="name" placeholder="请填写您的姓名"  class="form-control">
+                            <input type="text" name="name" placeholder="请填写您的姓氏"  class="form-control">
 
                         </div>
                     </div>
@@ -104,7 +104,7 @@ $(function () {
     district = "";
     
     var telReg = /^1[3|4|5|8][0-9]\d{4,8}$/;    // 手机正则
-    var nameReg = /^[\u4e00-\u9fa5]{2,4}$/;     // 中文姓名正则
+    var nameReg = /^[\u4e00-\u9fa5]{1,2}$/;     // 中文姓名正则
     // 去除提醒框
     $(".form input").focus(function () {
         $(this).removeClass("invalid");
@@ -178,6 +178,22 @@ $(function () {
         data["sex"] = $("input[name='sex']:checked").val();
         data["tel"] = $("input[name='tel']").val();
         data["code"] = $("input[name='code']").val();
+        
+        if(data["house_number"] == "")
+        {
+          data["house_number"] = "1栋1单元";  
+        }
+        
+        if(data["floor"] == "")
+        {
+          data["floor"] = "1";  
+        }
+        
+        if(data["total_floor"] == "")
+        {
+          data["total_floor"] = "1";  
+        }
+        
         // 验证表单信息
         if (data['district'] == 0) {
             $("select[name='district']").addClass("invalid");
@@ -210,7 +226,7 @@ $(function () {
         } else if (!nameReg.test(data['name'])) {
             $("input[name='name']").addClass("invalid");
             layer.open({
-                "content": "请正确填写姓名",
+                "content": "请正确填写姓氏",
                 "skin": "msg",
                 "time": 2
             });
@@ -303,5 +319,6 @@ $(function () {
 
 })
         </script>
+        {!!$wechat!!}
     </body>
 </html>
