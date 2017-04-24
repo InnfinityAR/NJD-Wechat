@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>南京贷微信</title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+        <title>南京贷房屋抵押贷快速申请平台</title>
         <link rel="stylesheet" href="/resources/static/bootstrap/bootstrap.css"/>
         <link rel="stylesheet" href="/resources/static/bootcomplete/dist/bootcomplete.css"/>
         <link rel="stylesheet" href="/resources/style/index/css/index.css"/>
@@ -42,11 +42,11 @@
                         <a href="javascript:;" class="disabled">立即申请</a>
                     </li>
                     <li>
-                        <span>厦门</span>
+                        <span>深圳</span>
                         <a href="javascript:;" class="disabled">立即申请</a>
                     </li>
                     <li>
-                        <span>成都</span>
+                        <span>杭州</span>
                         <a href="javascript:;" class="disabled">立即申请</a>
                     </li>
                     <li>
@@ -57,17 +57,9 @@
                         <span>天津</span>
                         <a href="javascript:;" class="disabled">立即申请</a>
                     </li>
-                    <li>
-                        <span>杭州</span>
-                        <a href="javascript:;" class="disabled">立即申请</a>
-                    </li>
-                    <li>
-                        <span>深圳</span>
-                        <a href="javascript:;" class="disabled">立即申请</a>
-                    </li>
                 </ul>
             </div>
         </div>
-
+        {!!$wechat!!}
     </body>
 </html>
