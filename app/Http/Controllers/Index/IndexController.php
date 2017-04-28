@@ -14,9 +14,8 @@ use App\Http\Model\Record;
 
 class IndexController extends CommonController {
 
-    
     public function __construct() {
-        
+
         $timestamp = time();
 
         $wxticket = $this->wx_get_jsapi_ticket();
@@ -25,11 +24,11 @@ class IndexController extends CommonController {
         $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
         $timestamp = time();
-        $nonceStr = $this->createNonceStr();   
+        $nonceStr = $this->createNonceStr();
 
-        $string = "jsapi_ticket=$wxticket&noncestr=$nonceStr&timestamp=$timestamp&url=$url";  
+        $string = "jsapi_ticket=$wxticket&noncestr=$nonceStr&timestamp=$timestamp&url=$url";
 
-        $signature = sha1($string);  
+        $signature = sha1($string);
 
 
         $share = "<script type='text/javascript' src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
@@ -83,78 +82,64 @@ class IndexController extends CommonController {
 
         });
 
-        </script>"; 
-        
-        View::share("wechat",$share);
+        </script>";
 
+        View::share("wechat", $share);
     }
-    
-    
+
     private function wx_get_token() {
 
         $token = "";
-        
-        if(isset($_SESSION['token']))
-        {
-           $token = $_SESSION['token']; 
-        }
-        else
-        {
-           $res = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx38c340857b01b091&secret=bbfd9a759caf80803de607a04954090c');
+
+        if (isset($_SESSION['token'])) {
+            $token = $_SESSION['token'];
+        } else {
+            $res = file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx38c340857b01b091&secret=bbfd9a759caf80803de607a04954090c', false, stream_context_create(array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false))));
+            
 
             $res = json_decode($res, true);
 
             $token = $res['access_token'];
 
 
-            $_SESSION['token'] = $token; 
+            $_SESSION['token'] = $token;
         }
 
         return $token;
-
     }
 
-
     private function createNonceStr($length = 16) {
-        
+
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         $str = "";
         for ($i = 0; $i < $length; $i++) {
-          $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
+            $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
         }
         return $str;
-
     }
 
-
-
-    private function wx_get_jsapi_ticket(){
+    private function wx_get_jsapi_ticket() {
 
         $ticket = "";
 
-        do{
+        do {
 
-            if(isset($_SESSION['wx_ticket']))
-            {
-                
+            if (isset($_SESSION['wx_ticket'])) {
+
                 $ticket = $_SESSION['wx_ticket'];
-            
+                
                 if (!empty($ticket)) {
 
                     break;
-
                 }
             }
 
             $token = "";
-            if(!isset($_SESSION['token']))
-            {
+            if (isset($_SESSION['token'])) {
                 $this->wx_get_token();
                 $token = $_SESSION['token'];
-            }
-            else
-            {
-                $token =  $_SESSION['token'];
+            } else {
+                $token = $_SESSION['token'];
             }
 
             if (empty($token)) {
@@ -162,44 +147,40 @@ class IndexController extends CommonController {
                 logErr("get access token error.");
 
                 break;
-
             }
 
             $url2 = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={$token}&type=jsapi";
 
-            $res = file_get_contents($url2);
+            $res = file_get_contents($url2, false, stream_context_create(array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false))));
 
             $res = json_decode($res, true);
 
             $ticket = $res['ticket'];
 
             $_SESSION['wx_ticket'] = $ticket;
-
-        }while(0);
+        } while (0);
 
         return $ticket;
-
     }
-    
+
     // 选择城市页面
     public function form() {
         // 获取区
         $districts = District::all();
         return view("index.index.form", compact("districts"));
     }
-    
+
     public function index() {
         return view("index.index.index");
-        
     }
 
     // 保存用户信息
     public function storeClientInfo(Request $request) {
-        
+
         $input = $request->except("_token", "code");
         $input["status"] = 1;
         $input['create_time'] = time();
-        
+
         $map["district"] = $input["district"];
         $map["house_number"] = $input["house_number"];
         $map["house_area"] = $input["house_area"];
@@ -207,10 +188,10 @@ class IndexController extends CommonController {
         $map["house_addr"] = $input["house_addr"];
 
         if ($client = Client::where($map)->first()) {       // 如果房屋信息已存在数据库则直接读取
-            if($client->price){
+            if ($client->price) {
                 $back["status"] = true;
                 $back["id"] = $client->id;
-            }else{
+            } else {
                 $back["status"] = false;
                 $back["msg"] = "查询失败！";
             }
@@ -225,36 +206,36 @@ class IndexController extends CommonController {
                 $token_url = "http://open.fangjia.com/accessToken?username=$username&password=$password&appKey=$appkey";
                 $token_result = json_decode(file_get_contents($token_url), true);
                 $token = $token_result["result"]["token"];
-                
+
                 if ($token) {
-                    
+
                     // 第三方评估
                     $url = "http://open.fangjia.com/property/transaction";
                     $url .= "?token=$token";
                     $url .= "&serviceCode=S001";
-                    $url .= "&city=". urlencode("南京");
+                    $url .= "&city=" . urlencode("南京");
                     $url .= "&district=" . urlencode($input["district"]);
                     $url .= "&size=" . $input["house_area"];
                     $url .= "&address=" . urlencode($input["house_addr"]);
-                    if($input["house_number"]){
+                    if ($input["house_number"]) {
                         $url .= "&buildingNumber=" . urlencode($input["house_number"]);
                     }
-                    if($input["floor"]){
+                    if ($input["floor"]) {
                         $url .= "&floor=" . $input["floor"];
                     }
-                    if($input["total_floor"]){
+                    if ($input["total_floor"]) {
                         $url .= "&maxFloor=" . $input["total_floor"];
                     }
                     $result = json_decode(file_get_contents($url), true);
-                    
+
                     if ($result["code"] == 200) {     // 请求成功
                         // 更新用户房屋数据
                         $update_data["price"] = $result["result"]["totalPrice"] / 10000;
                         Client::where("id", $res->id)->update($update_data);
-                        
+
                         $back["id"] = $res->id;
                         $back["status"] = true;
-                    }else{
+                    } else {
                         $back["status"] = false;
                         $back["msg"] = "暂不支持该小区估价！";
                     }
@@ -282,8 +263,8 @@ class IndexController extends CommonController {
     public function apply($client_id, Request $request) {
         // 更新客户期望贷款金额
         $loan_price = $request->get("loan_price");
-        Client::where("id", $client_id)->update(["loan_price"=>$loan_price]);
-        
+        Client::where("id", $client_id)->update(["loan_price" => $loan_price]);
+
         // 将用户分配给客户经理同时status改为已申请
         // 获取所有的客户经理
         $user_ids = DB::table("role_user")->where("role_id", 3)->pluck("user_id");
@@ -305,13 +286,12 @@ class IndexController extends CommonController {
         if ($res) {
             // 向客户经理发送短信
             $this->sendMsgToManager($client_id);
-            
         } else {
             $back["status"] = false;
         }
         return redirect("/success");
     }
-    
+
     // 申请成功页面
     public function success() {
         return view("index.index.success");
@@ -319,7 +299,7 @@ class IndexController extends CommonController {
 
     // 动态获取地址
     public function getAddr(Request $request) {
-        
+
         $search = urldecode($request->get("query"));
         $addrs = Residentialarea::where("residentialname", "like", $search . "%")->distinct()->take(10)->get()->toArray();
         $data = array();
@@ -342,7 +322,7 @@ class IndexController extends CommonController {
         $record_data["client_name"] = $client->name . $sex;
         $record_data["house_addr"] = $client->house_addr;
         $record_data["house_area"] = $client->house_area;
-        $record_data["price"] = $client->price."万元";
+        $record_data["price"] = $client->price . "万元";
         $record_data["loan_price"] = $client->loan_price;
         $record_data["status"] = 1;
         $res = Record::create($record_data);
